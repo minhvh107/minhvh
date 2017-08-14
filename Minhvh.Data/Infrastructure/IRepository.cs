@@ -15,6 +15,8 @@ namespace Minhvh.Data.Infrastructure
         // Marks an entity to be removed
         void Delete(T entity);
 
+        void Delete(int Id);
+
         //Delete multi records
         void DeleteMulti(Expression<Func<T, bool>> where);
 

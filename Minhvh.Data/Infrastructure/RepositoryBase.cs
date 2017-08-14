@@ -50,6 +50,12 @@ namespace Minhvh.Data.Infrastructure
             dbSet.Remove(entity);
         }
 
+        public void Delete(int Id)
+        {
+            var entity = dbSet.Find(Id);
+            dbSet.Remove(entity);
+        }
+
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();

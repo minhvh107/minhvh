@@ -1,4 +1,5 @@
-﻿using Minhvh.Model.Abstract;
+﻿using System.Collections.Generic;
+using Minhvh.Model.Abstract;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,6 +26,8 @@ namespace Minhvh.Model.Models
 
         [ForeignKey("CategoryID")]
         public virtual PostCategory PostCategory { set; get; }
+        
+        public virtual IEnumerable<PostTag> PostTags { set; get; }
 
         [MaxLength(500)]
         public string Description { set; get; }
