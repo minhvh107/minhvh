@@ -19,7 +19,7 @@ namespace Minhvh.Service
 
         IEnumerable<Post> GetAllPagings(int page, int pageSize, out int totalRow);
 
-        Post GetById(int Id);
+        Post GetById(int id);
 
         IEnumerable<Post> GetAllByTagPaging(string tag,int page, int pageSize, out int totalRow);
 
@@ -28,8 +28,8 @@ namespace Minhvh.Service
 
     public class PostService : IPostService
     {
-        private IPostRepository _postRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IPostRepository _postRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public PostService(IPostRepository postRepository,IUnitOfWork unitOfWork)
         {
@@ -47,9 +47,9 @@ namespace Minhvh.Service
             throw new NotImplementedException();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            _postRepository.Delete(Id);
+            _postRepository.Delete(id);
         }
 
         public IEnumerable<Post> GetAll()
@@ -59,25 +59,15 @@ namespace Minhvh.Service
 
         public IEnumerable<Post> GetAllPagings(int page, int pageSize, out int totalRow)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Post> GetAllPagings(string tag,int page, int pageSize, out int totalRow)
-        {
             return _postRepository.GetMultiPaging(m => m.Status, out totalRow, page, pageSize);
         }
 
-        public Post GetById(int Id)
+        public Post GetById(int id)
         {
-            return _postRepository.GetSingleById(Id);
+            return _postRepository.GetSingleById(id);
         }
 
         public IEnumerable<Post> GetAllByTagPaging(string tag, int page, int pageSize, out int totalRow)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Post> GetAllByTagPaging(int page, int pageSize, out int totalRow)
         {
             return _postRepository.GetMultiPaging(m => m.Status, out totalRow, page, pageSize);
         }

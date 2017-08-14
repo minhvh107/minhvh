@@ -3,7 +3,7 @@ using Minhvh.Model.Models;
 
 namespace Minhvh.Data.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepository<Product>
     {
     }
 
