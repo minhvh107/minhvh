@@ -58,9 +58,14 @@
     <Compile Include="Migrations\201708131740204_InitDb.Designer.cs">
       <DependentUpon>201708131740204_InitDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708201145122_AddTableErrorCode.cs" />
+    <Compile Include="Migrations\201708201145122_AddTableErrorCode.Designer.cs">
+      <DependentUpon>201708201145122_AddTableErrorCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinhvhDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ErrorCodeRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
@@ -96,6 +101,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708131740204_InitDb.resx">
       <DependentUpon>201708131740204_InitDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201145122_AddTableErrorCode.resx">
+      <DependentUpon>201708201145122_AddTableErrorCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

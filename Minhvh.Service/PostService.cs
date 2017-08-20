@@ -13,15 +13,17 @@ namespace Minhvh.Service
 
         void Update(Post post);
 
-        void Delete(int Id);
+        void Delete(int id);
 
         IEnumerable<Post> GetAll();
 
-        IEnumerable<Post> GetAllPagings(int page, int pageSize, out int totalRow);
+        IEnumerable<Post> GetAllPagings(int pageIndex, int pageSize, out int totalRow);
 
         Post GetById(int id);
 
-        IEnumerable<Post> GetAllByTagPaging(string tag,int page, int pageSize, out int totalRow);
+        IEnumerable<Post> GetAllByTagPaging(string tag,int pageIndex, int pageSize, out int totalRow);
+
+        IEnumerable<Post> GetAllByCategoryIdPaging(int categoryId, int pageIndex, int pageSize, out int totalRow);
 
         void SaveChanges();
     }
@@ -57,9 +59,9 @@ namespace Minhvh.Service
             return _postRepository.GetAll( new string[] {"PostCategory"});
         }
 
-        public IEnumerable<Post> GetAllPagings(int page, int pageSize, out int totalRow)
+        public IEnumerable<Post> GetAllPagings(int pageIndex, int pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(m => m.Status, out totalRow, page, pageSize);
+            return _postRepository.GetMultiPaging(m => m.Status, out totalRow, pageIndex, pageSize);
         }
 
         public Post GetById(int id)
@@ -67,9 +69,15 @@ namespace Minhvh.Service
             return _postRepository.GetSingleById(id);
         }
 
-        public IEnumerable<Post> GetAllByTagPaging(string tag, int page, int pageSize, out int totalRow)
+        public IEnumerable<Post> GetAllByTagPaging(string tag, int pageIndex, int pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(m => m.Status, out totalRow, page, pageSize);
+            return _postRepository.GetAllByTag(tag, pageIndex, pageSize, out totalRow);
+        }
+
+        public IEnumerable<Post> GetAllByCategoryIdPaging(int categoryId, int pageIndex, int pageSize, out int totalRow)
+        {
+            return _postRepository.GetMultiPaging(m => m.Status && m.CategoryID == categoryId, out totalRow, pageIndex,
+                pageSize, new string[] {"PostCategory"});
         }
 
         public void SaveChanges()

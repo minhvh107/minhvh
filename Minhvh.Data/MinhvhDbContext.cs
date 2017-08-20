@@ -27,6 +27,7 @@ namespace Minhvh.Data
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Tag> Tags { set; get; }
         public DbSet<SystemConfig> SystemConfigs { set; get; }
+        public DbSet<ErrorCode> ErrorCodes { set; get; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
