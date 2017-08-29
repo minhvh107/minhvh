@@ -1,10 +1,12 @@
-﻿using Minhvh.Web.Infrastructure.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Minhvh.Model.Models;
+using Minhvh.Service;
+using Minhvh.Web.Infrastructure.Core;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Minhvh.Model.Models;
-using Minhvh.Service;
+using AutoMapper;
+using Minhvh.Web.Models;
 
 namespace Minhvh.Web.Api
 {
@@ -12,6 +14,7 @@ namespace Minhvh.Web.Api
     public class PostCategoryController : ApiControllerBase
     {
         private readonly IPostCategoryService _postCategoryService;
+
         public PostCategoryController(IErrorCodeService errorCodeService, IPostCategoryService postCategoryService) : base(errorCodeService)
         {
             _postCategoryService = postCategoryService;
@@ -22,19 +25,12 @@ namespace Minhvh.Web.Api
         {
             return CreateHttpReponseMessage(requestMessage, () =>
             {
-                HttpResponseMessage response = null;
-                if (ModelState.IsValid)
-                {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    var lstCategory = _postCategoryService.GetAll();
-                    _postCategoryService.SaveChanges();
+                var lstCategory = _postCategoryService.GetAll();
 
-                    response = requestMessage.CreateResponse(HttpStatusCode.OK, lstCategory);
-                }
+                var lstPostCategoryVm = Mapper.Map<List<PostCategoryViewModel>>(lstCategory);
 
+                _postCategoryService.SaveChanges();
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, lstPostCategoryVm);
                 return response;
             });
         }
@@ -46,14 +42,14 @@ namespace Minhvh.Web.Api
                 HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.SaveChanges();
 
                     response = requestMessage.CreateResponse(HttpStatusCode.Created, category);
+                }
+                else
+                {
+                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
 
                 return response;
@@ -67,14 +63,14 @@ namespace Minhvh.Web.Api
                 HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
                     _postCategoryService.Update(postCategory);
                     _postCategoryService.SaveChanges();
 
                     response = requestMessage.CreateResponse(HttpStatusCode.OK);
+                }
+                else
+                {
+                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
 
                 return response;
@@ -88,14 +84,14 @@ namespace Minhvh.Web.Api
                 HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
                     var category = _postCategoryService.Delete(id);
                     _postCategoryService.SaveChanges();
 
                     response = requestMessage.CreateResponse(HttpStatusCode.Created, category);
+                }
+                else
+                {
+                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
 
                 return response;

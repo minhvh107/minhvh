@@ -16,7 +16,7 @@ namespace Minhvh.Service
         private readonly IErrorCodeRepository _errorCodeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ErrorCodeService(IErrorCodeRepository errorCodeRepository, UnitOfWork unitOfWork)
+        public ErrorCodeService(IErrorCodeRepository errorCodeRepository, IUnitOfWork unitOfWork)
         {
             _errorCodeRepository = errorCodeRepository;
             _unitOfWork = unitOfWork;
