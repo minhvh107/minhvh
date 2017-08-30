@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Minhvh.Web.Infrastructure.Extensions;
 using Minhvh.Web.Models;
 
 namespace Minhvh.Web.Api
@@ -29,19 +30,23 @@ namespace Minhvh.Web.Api
 
                 var lstPostCategoryVm = Mapper.Map<List<PostCategoryViewModel>>(lstCategory);
 
-                _postCategoryService.SaveChanges();
+                
                 var response = requestMessage.CreateResponse(HttpStatusCode.OK, lstPostCategoryVm);
                 return response;
             });
         }
 
-        public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategory postCategory)
+        [Route("add")]
+        public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryViewModel)
         {
             return CreateHttpReponseMessage(requestMessage, () =>
             {
                 HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
+                    var postCategory = new PostCategory();
+                    postCategory.UpdatePostCategory(postCategoryViewModel);
+
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.SaveChanges();
 
@@ -56,13 +61,17 @@ namespace Minhvh.Web.Api
             });
         }
 
-        public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategory postCategory)
+        [Route("update")]
+        public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryViewModel)
         {
             return CreateHttpReponseMessage(requestMessage, () =>
             {
                 HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
+                    var postCategory = _postCategoryService.GetById(postCategoryViewModel.ID);
+                    postCategory.UpdatePostCategory(postCategoryViewModel);
+
                     _postCategoryService.Update(postCategory);
                     _postCategoryService.SaveChanges();
 

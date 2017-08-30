@@ -1,9 +1,10 @@
 ﻿using Minhvh.Model.Models;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Minhvh.Data
 {
-    public class MinhvhDbContext : DbContext
+    public class MinhvhDbContext : IdentityDbContext<ApplicationUser>
     {
         public MinhvhDbContext() : base("MinhvhConnection")
         {
@@ -29,9 +30,15 @@ namespace Minhvh.Data
         public DbSet<SystemConfig> SystemConfigs { set; get; }
         public DbSet<ErrorCode> ErrorCodes { set; get; }
 
+        public static MinhvhDbContext Create()
+        {
+            return new MinhvhDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
