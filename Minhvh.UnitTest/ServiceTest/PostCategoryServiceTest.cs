@@ -54,7 +54,7 @@ namespace Minhvh.UnitTest.ServiceTest
                 Status =  true
 
             };
-            _mockRepository.Setup(m => m.Add(postCategory)).Returns((PostCategory p) =>
+            _mockRepository.Setup(m => m.Create(postCategory)).Returns((PostCategory p) =>
             {
                 p.ID = 1;
                 return p;

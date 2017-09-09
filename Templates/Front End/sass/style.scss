@@ -1,0 +1,47 @@
+.nav-md .container.body .right_col {
+  padding: 0;
+}
+
+.title_left h3 {
+  padding-left: 30px;
+}
+
+.table-header-action {
+  padding: 5px 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+.margin-right-20 {
+  margin-right: 20px;
+}
+
+.pagination-item-per-page {
+  margin: 20px 0;
+}
+
+.display-inline {
+  display: inline !important;
+}
+
+.pagination {
+  margin-bottom: 0;
+}
+
+.table-fixed {
+  max-height: 400px;
+  th, td {
+    min-width: 100px;
+  }
+  th:nth-child(1), td:nth-child(1) {
+    min-width: 20px;
+  }
+}
+
+.x_paging {
+  margin-top: 20px;
+}
+
+.nicescroll-cursors {
+  cursor: pointer;
+}

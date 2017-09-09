@@ -8,7 +8,7 @@ namespace Minhvh.Data.Infrastructure
     public interface IRepository<T> where T : class
     {
         // Marks an entity as new
-        T Add(T entity);
+        T Create(T entity);
 
         // Marks an entity as modified
         void Update(T entity);

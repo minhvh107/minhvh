@@ -35,7 +35,7 @@ namespace Minhvh.Service
 
         public PostCategory Add(PostCategory postCategory)
         {
-            return _postCategoryRepository.Add(postCategory);
+            return _postCategoryRepository.Create(postCategory);
         }
 
         public void Update(PostCategory postCategory)

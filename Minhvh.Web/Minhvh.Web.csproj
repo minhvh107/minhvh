@@ -222,16 +222,46 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\app.routes.js" />
+    <Content Include="app\components\products\product.routes.js" />
+    <Content Include="app\components\products\productCreateController.js" />
+    <Content Include="app\components\products\productCreateView.html" />
+    <Content Include="app\components\products\productListController.js" />
+    <Content Include="app\components\products\productListView.html" />
+    <Content Include="app\components\products\productUpdateController.js" />
+    <Content Include="app\components\products\productUpdateView.html" />
+    <Content Include="Assets\admin\css\bootstrap.min.css" />
+    <Content Include="Assets\admin\css\custom.css" />
+    <Content Include="Assets\admin\css\font-awesome.min.css" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\admin\img\img.jpg" />
+    <Content Include="Assets\admin\js\bootstrap.min.js" />
+    <Content Include="Assets\admin\js\custom.js" />
+    <Content Include="Assets\admin\js\fastclick.js" />
+    <Content Include="Assets\admin\js\jquery.min.js" />
+    <Content Include="Assets\admin\js\nprogress.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\karma.conf.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\migrate\migratewarn.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js" />
+    <Content Include="Assets\admin\libs\angular-ui-router\rollup.config.js" />
+    <Content Include="Assets\admin\libs\angular\angular-csp.css" />
+    <Content Include="Assets\admin\libs\angular\angular.js" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js" />
+    <Content Include="Assets\admin\libs\angular\index.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\plugins\angular\angular-csp.css" />
-    <Content Include="Scripts\plugins\angular\angular.js" />
-    <Content Include="Scripts\plugins\angular\angular.min.js" />
-    <Content Include="Scripts\plugins\angular\index.js" />
-    <Content Include="Scripts\spa\app.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -242,8 +272,14 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\components\orders\" />
+    <Folder Include="app\components\product_categories\" />
+    <Folder Include="app\components\roles\" />
+    <Folder Include="app\components\users\" />
+    <Folder Include="app\shared\directive\" />
+    <Folder Include="app\shared\footer\" />
+    <Folder Include="app\shared\navigation\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\admin\" />
     <Folder Include="Assets\client\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
@@ -280,16 +316,49 @@
     <Content Include=".bowerrc" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\plugins\angular\.bower.json" />
-    <Content Include="Scripts\plugins\angular\angular.min.js.gzip" />
-    <Content Include="Scripts\plugins\angular\angular.min.js.map" />
-    <Content Include="Scripts\plugins\angular\bower.json" />
-    <Content Include="Scripts\plugins\angular\LICENSE.md" />
-    <Content Include="Scripts\plugins\angular\package.json" />
-    <Content Include="Scripts\plugins\angular\README.md" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\DOCS.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-ui-router\migrate\migrate.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
+    <Content Include="Assets\admin\libs\angular\.bower.json" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.gzip" />
+    <Content Include="Assets\admin\libs\angular\angular.min.js.map" />
+    <Content Include="Assets\admin\libs\angular\bower.json" />
+    <Content Include="Assets\admin\libs\angular\LICENSE.md" />
+    <Content Include="Assets\admin\libs\angular\package.json" />
+    <Content Include="Assets\admin\libs\angular\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\admin\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\admin\fonts\FontAwesome.otf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

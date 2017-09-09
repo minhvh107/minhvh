@@ -41,7 +41,7 @@ namespace Minhvh.Service
 
         public void Add(Post post)
         {
-            _postRepository.Add(post);
+            _postRepository.Create(post);
         }
 
         public void Update(Post post)

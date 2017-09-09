@@ -37,7 +37,7 @@ namespace Minhvh.UnitTest.RepositoryTest
                 Alias = "Test-category",
                 Status = true
             };
-            var result = _postCategoryRepository.Add(postCategory);
+            var result = _postCategoryRepository.Create(postCategory);
             _unitOfWork.SaveChanges();
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.ID);

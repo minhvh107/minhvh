@@ -24,7 +24,7 @@ namespace Minhvh.Service
 
         public ErrorCode Create(ErrorCode errorCode)
         {
-            return _errorCodeRepository.Add(errorCode);
+            return _errorCodeRepository.Create(errorCode);
         }
 
         public void SaveChanges()
