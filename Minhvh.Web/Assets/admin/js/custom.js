@@ -12,10 +12,12 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $LEFT_COL = $('.left_col'),
     $RIGHT_COL = $('.right_col'),
     $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
+    $FOOTER = $('.fixed-table-pagination'),
+    $X_CONTENT = $(".x_content");
+
 
 // Sidebar
-$(document).ready(function() {
+$(document).ready(function () {
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
@@ -25,19 +27,39 @@ $(document).ready(function() {
             footerHeight = $BODY.hasClass('footer_fixed') ? 0 : $FOOTER.height(),
             leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
         // normalize content
-        contentHeight -= $NAV_MENU.height() + footerHeight;
-
+        // contentHeight -= $NAV_MENU.height() + footerHeight;
+        var nav_menuHeight = $NAV_MENU.outerHeight(),
+            page_titleHeight = $(".page-title").outerHeight(),
+            x_titleHeight = $(".x_title").outerHeight();
+        var x_contentHeight = bodyHeight - nav_menuHeight - page_titleHeight - x_titleHeight - 80;
+        debugger;
+        $X_CONTENT.css('height', x_contentHeight);
         $RIGHT_COL.css('min-height', contentHeight);
     };
 
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
+    var setXContent = function () {
+        // reset height
+        $RIGHT_COL.css('min-height', $(window).height());
+
+        var bodyHeight = $BODY.outerHeight();
+        // normalize content
+        //contentHeight -= $NAV_MENU.height() + footerHeight;
+        var nav_menuHeight = $NAV_MENU.outerHeight(),
+            page_titleHeight = $(".page-title").outerHeight(),
+            x_titleHeight = $(".x_title").outerHeight();
+        var x_contentHeight = bodyHeight - nav_menuHeight - page_titleHeight - x_titleHeight + 80;
+
+        $X_CONTENT.css('height', x_contentHeight);
+
+    }
+
+    $SIDEBAR_MENU.find('a').on('click', function (ev) {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
-            $('ul:first', $li).slideUp(function() {
+            $('ul:first', $li).slideUp(function () {
                 setContentHeight();
             });
         } else {
@@ -46,72 +68,131 @@ $(document).ready(function() {
                 $SIDEBAR_MENU.find('li').removeClass('active active-sm');
                 $SIDEBAR_MENU.find('li ul').slideUp();
             }
-            
+
             $li.addClass('active');
 
-            $('ul:first', $li).slideDown(function() {
+            $('ul:first', $li).slideDown(function () {
+                setContentHeight();
+            });
+        }
+    });
+    $SIDEBAR_MENU.find('a').on('mouseenter', function (ev) {
+        var $li = $(this).parent();
+
+        if ($li.is('.active')) {
+            $li.removeClass('active active-sm');
+            $('ul:first', $li).stop().slideUp(function () {
+                setContentHeight();
+            });
+            $(this).parent().parent().find('li').removeClass('active');
+        } else {
+            // prevent closing menu if we are on child menu
+            if (!$li.parent().is('.child_menu')) {
+                $SIDEBAR_MENU.find('li').removeClass('active active-sm');
+                $SIDEBAR_MENU.find('li ul').stop().slideUp();
+            }
+
+            $(this).parent().parent().find('li').removeClass('active');
+
+            $li.addClass('active');
+
+            $('ul:first', $li).stop().slideDown(function () {
                 setContentHeight();
             });
         }
     });
 
-    // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
-        if ($BODY.hasClass('nav-md')) {
-            $SIDEBAR_MENU.find('li.active ul').hide();
-            $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-        } else {
-            $SIDEBAR_MENU.find('li.active-sm ul').show();
-            $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+    $("ul.side-menu").on('mouseleave', function (e) {
+        $("ul.side-menu > li.active > ul.child_menu").stop().slideUp(function () {
+            setContentHeight();
+        });
+        $("ul.side-menu li.active").removeClass('active');
+    });
+
+    $(document).mouseup(function (e) {
+        if (!$SIDEBAR_MENU.is(e.target) // if the target of the click isn't the container...
+            && $SIDEBAR_MENU.has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            $("ul.side-menu > li.active > ul.child_menu").slideUp(function () {
+                setContentHeight();
+            });
+            $("ul.side-menu li.active").removeClass('active');
         }
+    });
 
-        $BODY.toggleClass('nav-md nav-sm');
+    // toggle small or large menu
+    $MENU_TOGGLE.on('click', function () {
+        //debugger;
+        //if ($BODY.hasClass('nav-md')) {
+        //    $SIDEBAR_MENU.find('li.active ul').hide();
+        //    $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+        //} else {
+        //    $SIDEBAR_MENU.find('li.active-sm ul').show();
+        //    $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+        //}
 
-        setContentHeight();
+        $BODY.toggleClass('nav-sm-show');
+
+        //setContentHeight();
     });
 
     // check active menu
+    var arr = CURRENT_URL.replace("#", "").split('/');
+    var controller = arr[3];
+    $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').parent().find('li').removeClass('current-page');
     $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 
     $SIDEBAR_MENU.find('a').filter(function () {
-        return this.href == CURRENT_URL;
-    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-        setContentHeight();
-    }).parent().addClass('active');
-
+        var href = this.href.split('/')[3];
+        if (href != null && href != undefined && href.toLowerCase() == controller.toLowerCase()) {
+            return this;
+        }
+    }).parent('li').addClass('current-page');
+    $SIDEBAR_MENU.find('a').filter(function () {
+        var href = this.href.split('/')[3];
+        if (href != null && href != undefined && href.toLowerCase() == controller.toLowerCase()) {
+            return this;
+        }
+    }).parent().parent().parent('li').addClass('current-page');
+    //if (controller == null || controller == "") {
+    //    $SIDEBAR_MENU.find('a[href="/Retailer"]')
+    //        .parent('li').addClass('current-page');
+    //    $SIDEBAR_MENU.find('a[href="/Retailer"]')
+    //        .parent().parent().parent('li').addClass('current-page');
+    //}
     // recompute content when resizing
-    $(window).smartresize(function(){  
-        setContentHeight();
-    });
+    //$(window).smartresize(function () {
+    //    setContentHeight();
+    //});
 
     setContentHeight();
-
+    setXContent();
     // fixed sidebar
     if ($.fn.mCustomScrollbar) {
         $('.menu_fixed').mCustomScrollbar({
             autoHideScrollbar: true,
             theme: 'minimal',
-            mouseWheel:{ preventDefault: true }
+            mouseWheel: { preventDefault: true }
         });
     }
 });
 // /Sidebar
 
 // Panel toolbox
-$(document).ready(function() {
-    $('.collapse-link').on('click', function() {
+$(document).ready(function () {
+    $('.collapse-link').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
-        
+
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
-            $BOX_CONTENT.slideToggle(200, function(){
+            $BOX_CONTENT.slideToggle(200, function () {
                 $BOX_PANEL.removeAttr('style');
             });
         } else {
-            $BOX_CONTENT.slideToggle(200); 
-            $BOX_PANEL.css('height', 'auto');  
+            $BOX_CONTENT.slideToggle(200);
+            $BOX_PANEL.css('height', 'auto');
         }
 
         $ICON.toggleClass('fa-chevron-up fa-chevron-down');
@@ -126,7 +207,7 @@ $(document).ready(function() {
 // /Panel toolbox
 
 // Tooltip
-$(document).ready(function() {
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
     });
@@ -134,13 +215,13 @@ $(document).ready(function() {
 // /Tooltip
 
 // Progressbar
-if ($(".progress .progress-bar")[0]) {
-    $('.progress .progress-bar').progressbar();
-}
+//if ($(".progress .progress-bar")[0]) {
+//    $('.progress .progress-bar').progressbar();
+//}
 // /Progressbar
 
 // Switchery
-$(document).ready(function() {
+$(document).ready(function () {
     if ($(".js-switch")[0]) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function (html) {
@@ -153,7 +234,7 @@ $(document).ready(function() {
 // /Switchery
 
 // iCheck
-$(document).ready(function() {
+$(document).ready(function () {
     if ($("input.flat")[0]) {
         $(document).ready(function () {
             $('input.flat').iCheck({
@@ -165,39 +246,52 @@ $(document).ready(function() {
 });
 // /iCheck
 
-// Table
-$('table input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('table input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
+//// Table
+//$('table input').on('ifChecked', function () {
+//    checkState = '';
+//    $(this).parent().parent().parent().addClass('selected');
+//    countChecked();
+//});
+//$('table input').on('ifUnchecked', function () {
+//    checkState = '';
+//    $(this).parent().parent().parent().removeClass('selected');
+//    countChecked();
+//});
 
-var checkState = '';
+//var checkState = '';
 
-$('.bulk_action input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
+//$('.bulk_action input').on('ifChecked', function () {
+//    checkState = '';
+//    $(this).parent().parent().parent().addClass('selected');
+//    countChecked();
+//});
+//$('.bulk_action input').on('ifUnchecked', function () {
+//    checkState = '';
+//    $(this).parent().parent().parent().removeClass('selected');
+//    countChecked();
+//});
+//$('.bulk_action input#check-all').on('ifChecked', function () {
+//    checkState = 'all';
+//    //$(this).parent().parent().css('z-index','1002');
+//    countChecked();
+//});
+//$('.bulk_action input#check-all').on('ifUnchecked', function () {
+//    checkState = 'none';
+//    countChecked();
+//});
+
+$('table.bulk_action td').on('click', function () {
+    //checkState = '';
+    // $("table.bulk_action tr").removeClass('selected');
+    $(this).parent().parent().find('tr').removeClass('selected');
+    $(this).parent().toggleClass('selected');
+    //countChecked();
 });
-$('.bulk_action input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifChecked', function () {
-    checkState = 'all';
-    //$(this).parent().parent().css('z-index','1002');
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifUnchecked', function () {
-    checkState = 'none';
-    countChecked();
-});
+//$('.bulk_action input').on('ifUnchecked', function () {
+//    checkState = '';
+//    $(this).parent().parent().parent().removeClass('selected');
+//    countChecked();
+//});
 
 function countChecked() {
     if (checkState === 'all') {
@@ -220,7 +314,7 @@ function countChecked() {
 }
 
 // Accordion
-$(document).ready(function() {
+$(document).ready(function () {
     $(".expand").on("click", function () {
         $(this).next().slideToggle(200);
         $expand = $(this).find(">:first-child");
@@ -251,18 +345,18 @@ if (typeof NProgress != 'undefined') {
  *     // code here
  * });
  */
-(function($,sr){
+(function ($, sr) {
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
-      var timeout;
+        var timeout;
 
-        return function debounced () {
+        return function debounced() {
             var obj = this, args = arguments;
-            function delayed () {
+            function delayed() {
                 if (!execAsap)
                     func.apply(obj, args);
-                timeout = null; 
+                timeout = null;
             }
 
             if (timeout)
@@ -270,11 +364,11 @@ if (typeof NProgress != 'undefined') {
             else if (execAsap)
                 func.apply(obj, args);
 
-            timeout = setTimeout(delayed, threshold || 100); 
+            timeout = setTimeout(delayed, threshold || 100);
         };
     };
 
     // smartresize 
-    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+    jQuery.fn[sr] = function (fn) { return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
-})(jQuery,'smartresize');
+})(jQuery, 'smartresize');

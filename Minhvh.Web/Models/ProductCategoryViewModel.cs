@@ -2,7 +2,7 @@
 
 namespace Minhvh.Web.Models
 {
-    public class PostCategoryViewModel
+    public class ProductCategoryViewModel
     {
         public int ID { set; get; }
 
@@ -34,6 +34,6 @@ namespace Minhvh.Web.Models
 
         public bool Status { set; get; }
 
-        public virtual PostViewModel PostViewModel { set; get; }
+        public virtual ProductViewModel ProductViewModel { set; get; }
     }
 }

@@ -13,6 +13,7 @@ namespace Minhvh.Web.Mappings
                 cfg.CreateMap<Post, PostViewModel>();
                 cfg.CreateMap<PostTag, PostTagViewModel>();
                 cfg.CreateMap<PostCategory, PostCategoryViewModel>();
+                cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
             });
         }
     }

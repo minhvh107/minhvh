@@ -2,7 +2,7 @@
 
 namespace Minhvh.Web.Models
 {
-    public class PostCategoryViewModel
+    public class ProductViewModel
     {
         public int ID { set; get; }
 
@@ -10,15 +10,21 @@ namespace Minhvh.Web.Models
 
         public string Alias { set; get; }
 
+        public int CategoryID { set; get; }
+
+        public virtual ProductCategoryViewModel ProductCategoryViewModel { set; get; }
+
+        public virtual ProductTagViewModel ProductTags { set; get; }
+
         public string Description { set; get; }
 
-        public int? ParentID { set; get; }
-
-        public int? DisplayOrder { set; get; }
-
-        public string Image { set; get; }
+        public string Content { set; get; }
 
         public bool? HomeFlag { set; get; }
+
+        public bool? HotFlag { set; get; }
+
+        public int ViewCount { set; get; }
 
         public DateTime? CreatedDate { set; get; }
 
@@ -33,7 +39,5 @@ namespace Minhvh.Web.Models
         public string MetaDescription { set; get; }
 
         public bool Status { set; get; }
-
-        public virtual PostViewModel PostViewModel { set; get; }
     }
 }

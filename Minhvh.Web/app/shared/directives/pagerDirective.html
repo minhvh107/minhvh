@@ -1,0 +1,35 @@
+﻿<div class="row fixed-table-pagination">
+    <div class="col-md-8 col-sm-6 col-xs-12">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 col-xs-12 width-auto">
+                <ul class="pagination">
+                    <li class="page-number page-first" page-number="1"><a href="javascipt:0" ng-hide="pageIndex == 0" ng-click="search(0)" class="first-page"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                    <li class="page-number page-pre" page-number="{{pageIndex -1}}"><a href="javascipt:0" ng-hide="pageIndex == 0" ng-click="search(pageIndex-1)" class="pre-page"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                    <li ng-repeat="n in range()" ng-class="{active: n == pageIndex}">
+                        <a href="javascipt:0" ng-click="search(n)" ng-if="n != pageIndex">{{n+1}}</a>
+                        <span ng-if="n == pageIndex">{{n+1}}</span>
+                    </li>
+                    <li class="page-number page-next" page-number="{{pageIndex +1 | number}}"><a href="javascipt:0" ng-hide="pageIndex == totalPages - 1" ng-click="search(pagePlus(1))" class="next-page"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                    <li class="page-number page-last" page-number="{{totalPages}}"><a href="javascipt:0" ng-hide="pageIndex == totalPages - 1" ng-click="search(totalPages - 1)" class="last-page"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </ul>
+
+            </div>
+            <label class="control-label col-md-2 col-sm-6 col-xs-6 width-auto">
+                Số dòng
+            </label>
+            <div class="col-md-3 col-sm-6 col-xs-6 width-auto" style="line-height: 30px;">
+                <select class="form-control page-size">
+                    <option value="5">5</option>
+                    <option value="5">20</option>
+                    <option value="5">50</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 text-right show-result-number">
+        <div class="pagination">
+            <span class="pagination-info">Hiển thị {{pageIndex*pageSize + 1}} đến {{(pageIndex*1 + 1 ) * pageSize}} của {{totalCount}} dòng</span>
+        </div>
+    </div>
+</div>
