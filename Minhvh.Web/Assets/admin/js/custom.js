@@ -22,7 +22,6 @@ $(document).ready(function () {
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());
-
         var bodyHeight = $BODY.outerHeight(),
             footerHeight = $BODY.hasClass('footer_fixed') ? 0 : $FOOTER.height(),
             leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
@@ -33,7 +32,6 @@ $(document).ready(function () {
             page_titleHeight = $(".page-title").outerHeight(),
             x_titleHeight = $(".x_title").outerHeight();
         var x_contentHeight = bodyHeight - nav_menuHeight - page_titleHeight - x_titleHeight - 80;
-        debugger;
         $X_CONTENT.css('height', x_contentHeight);
         $RIGHT_COL.css('min-height', contentHeight);
     };
