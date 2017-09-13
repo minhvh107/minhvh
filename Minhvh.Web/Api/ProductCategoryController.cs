@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using Minhvh.Web.Infrastructure.Extensions;
 
 namespace Minhvh.Web.Api
 {
@@ -23,7 +24,8 @@ namespace Minhvh.Web.Api
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request,string keyword, int pageIndex, int pageSize)
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int pageIndex, int pageSize)
         {
             return CreateHttpReponseMessage(request, () =>
             {
@@ -40,6 +42,31 @@ namespace Minhvh.Web.Api
                 };
 
                 var response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
+
+        [Route("create")]
+        [HttpPost]
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategoryViewModel)
+        {
+            return CreateHttpReponseMessage(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var newProductCategory = new ProductCategory();
+                    newProductCategory.UpdateProductCategory(productCategoryViewModel);
+                    _productCategoryService.Create(newProductCategory);
+                    _productCategoryService.SaveChanges();
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+
+                }
                 return response;
             });
         }

@@ -1,4 +1,5 @@
-﻿using Minhvh.Model.Models;
+﻿using System;
+using Minhvh.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,9 +51,9 @@ namespace Minhvh.Data.Migrations
             {
                 List<ProductCategory> listProductCategories = new List<ProductCategory>
                 {
-                    new ProductCategory(){Name = "Điện lạnh",Alias = "dien-lanh",CreatedBy = "admin",Status = true},
-                    new ProductCategory(){Name = "Đồ gia dụng",Alias = "do-gia-dung",CreatedBy = "admin",Status = true},
-                    new ProductCategory(){Name = "Quần áo",Alias = "dien-lanh",CreatedBy = "admin",Status = true}
+                    new ProductCategory(){Name = "Điện lạnh",Alias = "dien-lanh",CreatedBy = "admin",Status = true, CreatedDate = DateTime.Now},
+                    new ProductCategory(){Name = "Đồ gia dụng",Alias = "do-gia-dung",CreatedBy = "admin",Status = true, CreatedDate = DateTime.Now},
+                    new ProductCategory(){Name = "Quần áo",Alias = "dien-lanh",CreatedBy = "admin",Status = true, CreatedDate = DateTime.Now}
                 };
                 context.ProductCategories.AddRange(listProductCategories);
                 context.SaveChanges();

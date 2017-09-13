@@ -8,7 +8,7 @@ namespace Minhvh.Service
 {
     public interface IProductCategoryService
     {
-        ProductCategory Add(ProductCategory productCategory);
+        ProductCategory Create(ProductCategory productCategory);
 
         void Update(ProductCategory productCategory);
 
@@ -36,7 +36,7 @@ namespace Minhvh.Service
             _unitOfWork = unitOfWork;
         }
 
-        public ProductCategory Add(ProductCategory productCategory)
+        public ProductCategory Create(ProductCategory productCategory)
         {
             return _productCategoryRepository.Create(productCategory);
         }

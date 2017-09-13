@@ -14,7 +14,7 @@ namespace Minhvh.Web.Models
 
         public int? ParentID { set; get; }
 
-        public int? DisplayOrder { set; get; }
+        public int DisplayOrder { set; get; }
 
         public string Image { set; get; }
 
