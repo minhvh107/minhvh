@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Minhvh.Web.Models
 {
@@ -6,8 +7,10 @@ namespace Minhvh.Web.Models
     {
         public int ID { set; get; }
 
+        [Required]
         public string Name { set; get; }
 
+        [Required]
         public string Alias { set; get; }
 
         public string Description { set; get; }
@@ -32,6 +35,7 @@ namespace Minhvh.Web.Models
 
         public string MetaDescription { set; get; }
 
+        [Required]
         public bool Status { set; get; }
 
         public virtual ProductViewModel ProductViewModel { set; get; }

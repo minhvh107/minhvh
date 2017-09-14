@@ -9,46 +9,79 @@
         <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                    <form class="form-horizontal form-label-left" novalidate>
+                    <form class="form-horizontal form-label-left" novalidate name="frmCreateProductCategory" role="form" ng-submit="CreateProductCategory()">
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">Tên danh mục</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="Name">Tên danh mục</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nhập tên danh mục" required="required" type="text">
+                                <input id="Name" class="form-control" ng-model="productCategory.Name" name="Name" type="text">
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">SEO tiêu đề</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="Alias">SEO tiêu đề</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nhập tên danh mục" required="required" type="text">
+                                <input id="Alias" class="form-control" ng-model="productCategory.Alias" name="Alias" placeholder="Nhập Seo" type="text">
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">Mô tả ngắn</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="Description">Mô tả ngắn</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nhập tên danh mục" required="required" type="text">
+                                <input id="Description" class="form-control" ng-model="productCategory.Description" name="Description" placeholder="Nhập mô tả ngắn" type="text">
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">Danh mục cha</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="ParentID">Danh mục cha</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control"></select>
+                                <select id="ParentID" class="form-control" ng-model="productCategory.ParentID" name="ParentID" ng-options="option.ID as option.Name for option in parentCategories">
+                                    <option value=""> Danh mục gốc</option>
+                                </select>
+                                <input type="hidden" ng-model="productCategory.ParentID" name="ParentID" />
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">Thứ tự</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="DisplayOrder">Thứ tự</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nhập tên danh mục" required="required" type="text">
+                                <input id="DisplayOrder" class="form-control" ng-model="productCategory.DisplayOrder" name="DisplayOrder" placeholder="Nhập thứ tự" type="number">
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="name">Hình ảnh</label>
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="Image">Hình ảnh</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nhập tên danh mục" required="required" type="text">
+                                <input id="Image" class="form-control" ng-model="productCategory.Image" name="Image" placeholder="Nhập tên danh mục" type="text">
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="MetaKeyword">Meta Keyword</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="MetaKeyword" class="form-control" ng-model="productCategory.MetaKeyword" name="MetaKeyword" placeholder="Nhập từ khoá" type="text">
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="MetaDescription">Meta Description</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea id="MetaDescription" class="form-control" ng-model="productCategory.MetaDescription" name="MetaDescription" placeholder="Nhập mô tả"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <div class="col-md-offset-3 col-md-9 col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="flat" ng-model="productCategory.Status" name="Status" ng-checked="productCategory.Status" checked="checked"> Kích hoạt
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="flat" ng-model="productCategory.HomeFlag" name="HomeFlag" ng-checked="productCategory.HomeFlag" checked="checked"> Hiển thị trang chủ
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
