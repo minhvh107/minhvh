@@ -1,9 +1,14 @@
 ﻿(function (app) {
-    function apiService($http, notificationService) {
+    function apiService(initJavascriptService, $http, notificationService) {
+
+        initJavascriptService.init();
+        $('table.bulk_action').find('tbody tr:first').addClass('selected');
+
         function get(url, params, success, failure) {
             $http.get(url, params).then(function (result) {
-                    success(result);
-                },
+                success(result);
+                initJavascriptService.init();
+            },
                 function (error) {
                     failure(error);
                 });
@@ -11,8 +16,8 @@
 
         function post(url, data, success, failure) {
             $http.post(url, data).then(function (result) {
-                    success(result);
-                },
+                success(result);
+            },
                 function (error) {
                     if (error.status == '401') {
                         notificationService.displayError('Authendicate is required');
@@ -21,14 +26,26 @@
                 });
         }
 
+        function put(url, data, success, failure) {
+            $http.put(url, data).then(function (result) {
+                success(result);
+            },
+                function (error) {
+                    if (error.status == '401') {
+                        notificationService.displayError('Authendicate is required');
+                    }
+                    failure(error);
+                });
+        }
 
         return {
             get: get,
-            post:post
+            post: post,
+            put: put
         }
     }
 
     app.service('apiService', apiService);
 
-    apiService.$inject = ["$http","notificationService"];
+    apiService.$inject = ["initJavascriptService", "$http", "notificationService"];
 })(angular.module("minhvh.common"));

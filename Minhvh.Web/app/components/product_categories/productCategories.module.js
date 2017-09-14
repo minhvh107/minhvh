@@ -9,11 +9,18 @@
                 url: "/product_categories",
                 templateUrl: "/app/components/product_categories/productCategoryListView.html",
                 controller: "productCategoryListController"
-            }).state('create_product_category',
+            })
+            .state('create_product_category',
             {
                 url: "/product_category_create",
                 templateUrl: "/app/components/product_categories/productCategoryCreateView.html",
                 controller: "productCategoryCreateController"
+            })
+            .state('update_product_category',
+            {
+                url: "/product_category_update",
+                templateUrl: "/app/components/product_categories/productCategoryUpdateView.html",
+                controller: "productCategoryUpdateController"
             });
     }
 

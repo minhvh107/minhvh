@@ -10,7 +10,7 @@
                 notificationService.displaySuccess(result.data.Name + " đã được thêm mới.");
                 $state.go('product_categories');
             }, function () {
-                notificationService.displayError("thêm mới không thành công.");
+                notificationService.displayError("Thêm mới không thành công.");
             });
         }
 

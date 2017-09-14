@@ -39,10 +39,14 @@
                     $scope.pageSize = result.data.TotalCount > pageSize ? pageSize : result.data.TotalCount;
                     $scope.totalPages = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
+                    
                 },
                 function () {
                     console.log("load false");
                 });
+            if ($scope.$last === true) {
+                console.log("11");
+            }
         }
         
     }
