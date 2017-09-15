@@ -1,7 +1,8 @@
 ﻿(function (app) {
     app.controller('homeController', homeController);
-    function homeController() {
-
+    homeController.$inject = ['apiService'];
+    function homeController(apiService) {
+        
     }
 
 })(angular.module('minhvh'))

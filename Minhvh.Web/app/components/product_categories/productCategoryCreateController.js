@@ -4,9 +4,18 @@
             CreatedDate: new Date(),
             Status: true
         }
+        function loadParentCategory() {
+            apiService.get("api/productcategory/getallparents", null, function (result) {
+                $scope.parentCategories = result.data;
+            }, function () {
+                console.log('canot get list parents');
+            });
+        }
+
+        loadParentCategory();
 
         function CreateProductCategory() {
-            apiService.post('/api/productcategory/create', $scope.productCategory, function (result) {
+            apiService.post("api/productcategory/create", $scope.productCategory, function (result) {
                 notificationService.displaySuccess(result.data.Name + " đã được thêm mới.");
                 $state.go('product_categories');
             }, function () {
@@ -16,15 +25,7 @@
 
         $scope.CreateProductCategory = CreateProductCategory;
 
-        function loadParentCategory() {
-            apiService.get('api/productcategory/getallparents', null, function (result) {
-                $scope.parentCategories = result.data;
-            }, function () {
-                console.log('canot get list parents');
-            });
-        }
-
-        loadParentCategory();
+        
     }
 
     app.controller('productCategoryCreateController', productCategoryCreateController);

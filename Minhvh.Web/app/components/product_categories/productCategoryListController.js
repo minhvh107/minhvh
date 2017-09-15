@@ -1,12 +1,13 @@
 ﻿(function (app) {
-    function productCategoryListController($scope, apiService, notificationService, initJavascriptService, $timeout) {
+    function productCategoryListController($scope, apiService, notificationService) {
         $scope.productCategories = [];
         $scope.keyword = '';
-        initJavascriptService.init();
-        $timeout(function() {
-            $('#listContent').find('tbody tr:first').addClass('selected');
-        }, 3000);
-     
+
+        /**
+         * Load danh sách
+         * @param {any} pageIndex
+         * @param {any} pageSize
+         */
         function getProductCategories(pageIndex, pageSize) {
             pageIndex = pageIndex || 0;
             pageSize = pageSize || 20;
@@ -31,28 +32,29 @@
                     $scope.pageSize = result.data.TotalCount > pageSize ? pageSize : result.data.TotalCount;
                     $scope.totalPages = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
-                    initJavascriptService.initTable();
                     
+                    $scope.tdSelected = result.data.Item[0];
+                    $scope.setSelected = function (item) {
+                        $scope.tdSelected = item;
+                    }
                 },
                 function () {
                     console.log("load false");
                 });
         }
+        $scope.getProductCategories = getProductCategories;
+        $scope.getProductCategories();
 
+        /**
+         * tìm kiếm
+         */
         function search() {
             getProductCategories();
         }
-
-
         $scope.search = search;
-        $scope.getProductCategories = getProductCategories;
-        $scope.getProductCategories();
-        
-
-
     }
 
     app.controller("productCategoryListController", productCategoryListController);
 
-    productCategoryListController.$inject = ["$scope", "apiService", "notificationService", "initJavascriptService", "$timeout"];
+    productCategoryListController.$inject = ["$scope", "apiService", "notificationService"];
 })(angular.module("minhvh.product_categories"));

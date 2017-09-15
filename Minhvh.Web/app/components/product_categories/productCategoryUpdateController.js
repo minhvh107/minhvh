@@ -15,7 +15,7 @@
         }
 
         function updateProductCategory() {
-            apiService.post('/api/productcategory/update', $scope.productCategory, function (result) {
+            apiService.post('api/productcategory/update', $scope.productCategory, function (result) {
                 notificationService.displaySuccess(result.data.Name + " đã được cập nhật.");
                 $state.go('product_categories');
             }, function () {
@@ -25,15 +25,15 @@
 
         $scope.UpdateProductCategory = updateProductCategory;
 
-        function loadParentCategory() {
-            apiService.get('api/productcategory/getallparents', null, function (result) {
-                $scope.parentCategories = result.data;
-            }, function () {
-                console.log('canot get list parents');
-            });
-        }
+        //function loadParentCategory() {
+        //    apiService.get('api/productcategory/getallparents', null, function (result) {
+        //        $scope.parentCategories = result.data;
+        //    }, function () {
+        //        console.log('canot get list parents');
+        //    });
+        //}
 
-        loadParentCategory();
+        //loadParentCategory();
         loadProductCategoryDetail();
     }
 

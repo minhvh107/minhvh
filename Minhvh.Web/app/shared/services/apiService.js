@@ -2,12 +2,11 @@
     function apiService(initJavascriptService, $http, notificationService) {
 
         initJavascriptService.init();
-        $('table.bulk_action').find('tbody tr:first').addClass('selected');
 
         function get(url, params, success, failure) {
+            debugger;
             $http.get(url, params).then(function (result) {
                 success(result);
-                initJavascriptService.init();
             },
                 function (error) {
                     failure(error);

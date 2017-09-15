@@ -187,7 +187,6 @@
         }
         function initTable() {
             console.log("123123123");
-            $('#listContent').find('tbody tr:first').addClass('selected');
             $('table.bulk_action td').on('click', function () {
                 // $("table.bulk_action tr").removeClass('selected');
                 $(this).parent().parent().find('tr').removeClass('selected');
