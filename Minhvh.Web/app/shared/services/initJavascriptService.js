@@ -114,18 +114,18 @@
 
             // check active menu
             var arr = CURRENT_URL.replace("#", "").split('/');
-            var controller = arr[3];
-            $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').parent().find('li').removeClass('current-page');
-            $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+            var controller = arr[4];
+           // $SIDEBAR_MENU.find('a[href="#!/' + CURRENT_URL + '"]').parent('li').parent().find('li').removeClass('current-page');
+           // $SIDEBAR_MENU.find('a[href="#!/' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 
             $SIDEBAR_MENU.find('a').filter(function () {
-                var href = this.href.split('/')[3];
+                var href = this.href.split('/')[4];
                 if (href != null && href != undefined && href.toLowerCase() == controller.toLowerCase()) {
                     return this;
                 }
             }).parent('li').addClass('current-page');
             $SIDEBAR_MENU.find('a').filter(function () {
-                var href = this.href.split('/')[3];
+                var href = this.href.split('/')[4];
                 if (href != null && href != undefined && href.toLowerCase() == controller.toLowerCase()) {
                     return this;
                 }
@@ -184,22 +184,20 @@
                 });
             }
 
-            function initTable() {
-                $('table.bulk_action td').on('click', function () {
-                    console.log("123");
-                    //checkState = '';
-                    // $("table.bulk_action tr").removeClass('selected');
-                    $(this).parent().parent().find('tr').removeClass('selected');
-                    $(this).parent().toggleClass('selected');
-                    //countChecked();
-                });
-            }
-
-            initTable();
-
+        }
+        function initTable() {
+            console.log("123123123");
+            $('#listContent').find('tbody tr:first').addClass('selected');
+            $('table.bulk_action td').on('click', function () {
+                // $("table.bulk_action tr").removeClass('selected');
+                $(this).parent().parent().find('tr').removeClass('selected');
+                $(this).parent().toggleClass('selected');
+            });
         }
         return{
-            init:init
+            init: init,
+            restrict: 'E',
+            initTable:initTable
         }
     }
     

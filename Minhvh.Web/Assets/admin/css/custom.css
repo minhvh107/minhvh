@@ -694,6 +694,7 @@ a {
 /*.nav.side-menu > li.current-page,*/
 .nav.side-menu > li.active > a {
     border-right: 5px solid #1ABB9C;
+    padding-right: 0;
 }
 
 .nav li.current-page {

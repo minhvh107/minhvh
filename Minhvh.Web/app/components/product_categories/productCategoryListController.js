@@ -1,26 +1,18 @@
 ﻿(function (app) {
-    app.controller("productCategoryListController", productCategoryListController);
-
-    productCategoryListController.$inject = ["$scope", "apiService","notificationService"];
-    function productCategoryListController($scope, apiService, notificationService) {
+    function productCategoryListController($scope, apiService, notificationService, initJavascriptService, $timeout) {
         $scope.productCategories = [];
         $scope.keyword = '';
-
-        $scope.search = search;
-       
-        $scope.getProductCategories = getProductCategories;
-        $scope.getProductCategories();
-
-        function search() {
-            getProductCategories();
-        }
-
-        function getProductCategories(pageIndex,pageSize) {
+        initJavascriptService.init();
+        $timeout(function() {
+            $('#listContent').find('tbody tr:first').addClass('selected');
+        }, 3000);
+     
+        function getProductCategories(pageIndex, pageSize) {
             pageIndex = pageIndex || 0;
             pageSize = pageSize || 20;
             var config = {
                 params: {
-                    keyword:$scope.keyword,
+                    keyword: $scope.keyword,
                     pageIndex: pageIndex,
                     pageSize: pageSize
                 }
@@ -39,15 +31,28 @@
                     $scope.pageSize = result.data.TotalCount > pageSize ? pageSize : result.data.TotalCount;
                     $scope.totalPages = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
+                    initJavascriptService.initTable();
                     
                 },
                 function () {
                     console.log("load false");
                 });
-            if ($scope.$last === true) {
-                console.log("11");
-            }
         }
+
+        function search() {
+            getProductCategories();
+        }
+
+
+        $scope.search = search;
+        $scope.getProductCategories = getProductCategories;
+        $scope.getProductCategories();
         
+
+
     }
+
+    app.controller("productCategoryListController", productCategoryListController);
+
+    productCategoryListController.$inject = ["$scope", "apiService", "notificationService", "initJavascriptService", "$timeout"];
 })(angular.module("minhvh.product_categories"));
