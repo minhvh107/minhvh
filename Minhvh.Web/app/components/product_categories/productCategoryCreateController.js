@@ -15,7 +15,7 @@
         loadParentCategory();
 
         function CreateProductCategory() {
-            apiService.post("api/productcategory/create", $scope.productCategory, function (result) {
+            apiService.post("api/productcategory/create/", $scope.productCategory, function (result) {
                 notificationService.displaySuccess(result.data.Name + " đã được thêm mới.");
                 $state.go('product_categories');
             }, function () {
@@ -24,8 +24,6 @@
         }
 
         $scope.CreateProductCategory = CreateProductCategory;
-
-        
     }
 
     app.controller('productCategoryCreateController', productCategoryCreateController);

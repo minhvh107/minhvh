@@ -12,13 +12,13 @@
             })
             .state('create_product_category',
             {
-                url: "/product_category_create",
+                url: "/create_product_category",
                 templateUrl: "/app/components/product_categories/productCategoryCreateView.html",
                 controller: "productCategoryCreateController"
             })
             .state('update_product_category',
             {
-                url: "/product_category_update",
+                url: "/update_product_category/:id",
                 templateUrl: "/app/components/product_categories/productCategoryUpdateView.html",
                 controller: "productCategoryUpdateController"
             });

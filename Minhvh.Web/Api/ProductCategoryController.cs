@@ -23,6 +23,35 @@ namespace Minhvh.Web.Api
             _productCategoryService = productCategoryService;
         }
 
+        [Route("getallparents")]
+        [HttpGet]
+        public HttpResponseMessage GetAllParents(HttpRequestMessage request)
+        {
+            return CreateHttpReponseMessage(request, () =>
+            {
+                var model = _productCategoryService.GetAll();
+                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        [Route("getbyid/{id:int}")]
+        [HttpGet]
+        public HttpResponseMessage GetById(HttpRequestMessage request, int id)
+        {
+            return CreateHttpReponseMessage(request, () =>
+            {
+                var model = _productCategoryService.GetById(id);
+
+                var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+
+                return response;
+            });
+        }
+
         [Route("getall")]
         [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int pageIndex, int pageSize)
@@ -46,39 +75,9 @@ namespace Minhvh.Web.Api
             });
         }
 
-        [Route("getallparents")]
-        [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
-        {
-            return CreateHttpReponseMessage(request, () =>
-            {
-                var model = _productCategoryService.GetAll();
-                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
-            });
-        }
-
-        [Route("getbyid")]
-        [HttpGet]
-        public HttpResponseMessage GetById(HttpRequestMessage request, int id)
-        {
-            return CreateHttpReponseMessage(request, () =>
-            {
-                var model = _productCategoryService.GetById(id);
-
-                var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
-
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-
-                return response;
-            });
-        }
-
-        
-
         [Route("create")]
         [HttpPost]
+        [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategoryViewModel)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -104,25 +103,30 @@ namespace Minhvh.Web.Api
 
         [Route("update")]
         [HttpPut]
-        public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryViewModel)
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
         {
             return CreateHttpReponseMessage(request, () =>
             {
                 HttpResponseMessage response = null;
                 if (!ModelState.IsValid)
                 {
-                    response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
-                    var newProductCategory = _productCategoryService.GetById(productCategoryViewModel.ID);
-                    newProductCategory.UpdateProductCategory(productCategoryViewModel);
-                    _productCategoryService.Update(newProductCategory);
-                    _productCategoryService.SaveChanges();
-                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
-                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                    var dbProductCategory = _productCategoryService.GetById(productCategoryVm.ID);
 
+                    dbProductCategory.UpdateProductCategory(productCategoryVm);
+                    dbProductCategory.UpdatedDate = DateTime.Now;
+
+                    _productCategoryService.Update(dbProductCategory);
+                    _productCategoryService.SaveChanges();
+
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
+
                 return response;
             });
         }

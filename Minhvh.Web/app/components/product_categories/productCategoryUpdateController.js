@@ -7,38 +7,46 @@
 
         function loadProductCategoryDetail() {
             apiService.get('api/productcategory/getbyid/' + $stateParams.id,
-                function(result) {
+                null,
+                function (result) {
                     $scope.productCategory = result.data;
-                },function(error) {
+                },
+                function (error) {
                     notificationService.displayError(error.data);
                 });
         }
 
-        function updateProductCategory() {
-            apiService.post('api/productcategory/update', $scope.productCategory, function (result) {
-                notificationService.displaySuccess(result.data.Name + " đã được cập nhật.");
-                $state.go('product_categories');
-            }, function () {
-                notificationService.displayError("Cập nhật không thành công.");
-            });
+       
+
+        function UpdateProductCategory() {
+            apiService.put('api/productcategory/update', $scope.productCategory,
+                function (result) {
+                    notificationService.displaySuccess(result.data.Name + ' đã được cập nhật.');
+                    $state.go('product_categories');
+                }, function (error) {
+                    notificationService.displayError('Cập nhật không thành công.');
+                });
         }
 
-        $scope.UpdateProductCategory = updateProductCategory;
+        $scope.UpdateProductCategory = UpdateProductCategory;
 
-        //function loadParentCategory() {
-        //    apiService.get('api/productcategory/getallparents', null, function (result) {
-        //        $scope.parentCategories = result.data;
-        //    }, function () {
-        //        console.log('canot get list parents');
-        //    });
-        //}
+        function loadParentCategory() {
+            apiService.get('api/productcategory/getallparents',
+                null,
+                function (result) {
+                    $scope.parentCategories = result.data;
+                },
+                function () {
+                    console.log('canot get list parents');
+                });
+        }
 
-        //loadParentCategory();
+        loadParentCategory();
         loadProductCategoryDetail();
     }
 
     app.controller('productCategoryUpdateController', productCategoryUpdateController);
 
-    productCategoryUpdateController.$inject = ['$scope', 'apiService', 'notificationService', '$state','$stateParams'];
+    productCategoryUpdateController.$inject = ['$scope', 'apiService', 'notificationService', '$state', '$stateParams'];
 
 })(angular.module('minhvh.product_categories'));

@@ -4,7 +4,6 @@
         initJavascriptService.init();
 
         function get(url, params, success, failure) {
-            debugger;
             $http.get(url, params).then(function (result) {
                 success(result);
             },
