@@ -6,7 +6,6 @@ using Minhvh.Data;
 using Minhvh.Model.Models;
 using Owin;
 using System;
-using TeduShop.Web.App_Start;
 
 [assembly: OwinStartup(typeof(Minhvh.Web.App_Start.Startup))]
 

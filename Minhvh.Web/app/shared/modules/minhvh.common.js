@@ -1,4 +1,4 @@
 ﻿(function () {
-    angular.module('minhvh.common', ['ui.router']);
+    angular.module("minhvh.common", ["ui.router","ngBootbox"]);
 
 })();

@@ -18,8 +18,8 @@
 
        
 
-        function UpdateProductCategory() {
-            apiService.put('api/productcategory/update', $scope.productCategory,
+        function updateProductCategory() {
+            apiService.post('api/productcategory/update', $scope.productCategory,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được cập nhật.');
                     $state.go('product_categories');
@@ -27,8 +27,8 @@
                     notificationService.displayError('Cập nhật không thành công.');
                 });
         }
-
-        $scope.UpdateProductCategory = UpdateProductCategory;
+         
+        $scope.UpdateProductCategory = updateProductCategory;
 
         function loadParentCategory() {
             apiService.get('api/productcategory/getallparents',

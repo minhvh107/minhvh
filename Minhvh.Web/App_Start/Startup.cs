@@ -14,7 +14,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.DataProtection;
 using Minhvh.Model.Models;
-using TeduShop.Web.App_Start;
 
 [assembly: OwinStartup(typeof(Minhvh.Web.App_Start.Startup))]
 

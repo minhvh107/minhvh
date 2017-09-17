@@ -22,9 +22,11 @@ namespace Minhvh.Web.Infrastructure.Extensions
             post.ID = postViewModel.ID;
             post.Name = postViewModel.Name;
             post.Alias = postViewModel.Alias;
+
             post.Description = postViewModel.Description;
             post.CategoryID = postViewModel.CategoryID;
             post.Content = postViewModel.Content;
+
             post.HotFlag = postViewModel.HotFlag;
             post.HomeFlag = postViewModel.HomeFlag;
             post.ViewCount = postViewModel.ViewCount;
@@ -43,11 +45,22 @@ namespace Minhvh.Web.Infrastructure.Extensions
             productCategory.ID = productCategoryViewModel.ID;
             productCategory.Name = productCategoryViewModel.Name;
             productCategory.Alias = productCategoryViewModel.Alias;
+
             productCategory.Description = productCategoryViewModel.Description;
             productCategory.ParentID = productCategoryViewModel.ParentID;
             productCategory.DisplayOrder = productCategoryViewModel.DisplayOrder;
+
             productCategory.Image = productCategoryViewModel.Image;
             productCategory.HomeFlag = productCategoryViewModel.HomeFlag;
+
+            productCategory.CreatedDate = productCategoryViewModel.CreatedDate;
+            productCategory.CreatedBy = productCategoryViewModel.CreatedBy;
+            productCategory.UpdatedDate = productCategoryViewModel.UpdatedDate;
+            productCategory.UpdatedBy = productCategoryViewModel.UpdatedBy;
+            productCategory.MetaKeyword = productCategoryViewModel.MetaKeyword;
+            productCategory.MetaDescription = productCategoryViewModel.MetaDescription;
+            productCategory.Status = productCategoryViewModel.Status;
+
         }
     }
 }

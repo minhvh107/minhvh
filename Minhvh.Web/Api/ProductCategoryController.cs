@@ -89,20 +89,26 @@ namespace Minhvh.Web.Api
                 }
                 else
                 {
+                    //Value Default
+                    productCategoryViewModel.CreatedBy = "admin";
+                    productCategoryViewModel.CreatedDate = DateTime.Now;
+
+                    //Save
                     var newProductCategory = new ProductCategory();
                     newProductCategory.UpdateProductCategory(productCategoryViewModel);
                     _productCategoryService.Create(newProductCategory);
                     _productCategoryService.SaveChanges();
+
+                    //Return
                     var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
-
                 }
                 return response;
             });
         }
 
         [Route("update")]
-        [HttpPut]
+        [HttpPost]
         [AllowAnonymous]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
         {
@@ -115,14 +121,16 @@ namespace Minhvh.Web.Api
                 }
                 else
                 {
+                    // Value Default
+                    productCategoryVm.UpdatedDate = DateTime.Now;
+
+                    // Update
                     var dbProductCategory = _productCategoryService.GetById(productCategoryVm.ID);
-
                     dbProductCategory.UpdateProductCategory(productCategoryVm);
-                    dbProductCategory.UpdatedDate = DateTime.Now;
-
                     _productCategoryService.Update(dbProductCategory);
                     _productCategoryService.SaveChanges();
 
+                    //Return
                     var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
@@ -130,5 +138,32 @@ namespace Minhvh.Web.Api
                 return response;
             });
         }
+
+        //[Route("delete")]
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+        //{
+        //    return CreateHttpReponseMessage(request, () =>
+        //    {
+        //        HttpResponseMessage response = null;
+        //        if (!ModelState.IsValid)
+        //        {
+        //            response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+        //        }
+        //        else
+        //        {
+        //            // Delete
+        //            var oldProductCategory =  _productCategoryService.Delete(id);
+        //            _productCategoryService.SaveChanges();
+
+        //            //Return
+        //            var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(oldProductCategory);
+        //            response = request.CreateResponse(HttpStatusCode.OK, responseData);
+        //        }
+
+        //        return response;
+        //    });
+        //}
     }
 }

@@ -27,8 +27,8 @@
         <div id="listContent">
             <div class="table-header-action">
                 <a href="javascript:void(0);" ui-sref="create_product_category" class="margin-right-20 btn-add-item"><i class="fa fa-plus fa-lg"></i> Thêm</a>
-                <a href="javascript:void(0);" ui-sref="update_product_category({id:tdSelected.ID})" class="margin-right-20 btn-update-item" url-content="/Product/Edit"><i class="fa fa-edit fa-lg"></i> Sửa</a>
-                <a href="javascript:void(0);" class="margin-right-20 btn-remove-item" url-content="/Product/Delete"><i class="fa fa-remove fa-lg"></i> Xóa</a>
+                <a href="javascript:void(0);" ui-sref="update_product_category({id:tdSelected.ID})" class="margin-right-20 btn-update-item"><i class="fa fa-edit fa-lg"></i> Sửa</a>
+                <a href="javascript:void(0);" ng-click="deleteProductCategory(tdSelected.ID)" class="margin-right-20 btn-remove-item"><i class="fa fa-remove fa-lg"></i> Xóa</a>
                 <input type="hidden" value="/Product/ViewItem" id="url-view" />
             </div>
             <div class="table-responsive table-fixed">

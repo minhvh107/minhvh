@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using TeduShop.Web.App_Start;
+using Minhvh.Web.App_Start;
 
 namespace Minhvh.Web.Api
 {

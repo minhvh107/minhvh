@@ -1,5 +1,5 @@
 ﻿(function (app) {
-    function productCategoryListController($scope, apiService, notificationService) {
+    function productCategoryListController($scope, apiService, notificationService, $ngBootbox) {
         $scope.productCategories = [];
         $scope.keyword = '';
 
@@ -32,7 +32,7 @@
                     $scope.pageSize = result.data.TotalCount > pageSize ? pageSize : result.data.TotalCount;
                     $scope.totalPages = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
-                    
+
                     $scope.tdSelected = result.data.Item[0];
                     $scope.setSelected = function (item) {
                         $scope.tdSelected = item;
@@ -52,9 +52,27 @@
             getProductCategories();
         }
         $scope.search = search;
+
+        /*Xóa*/
+        //$scope.deleteProductCategory = deleteProductCategory;
+        //function deleteProductCategory(id) {
+        //    $ngBootbox.confirm("Bạn có chắc muốn xóa ?").then(function () {
+        //        var config = {
+        //            params: {
+        //                id: id
+        //            }
+        //        };
+        //        apiService.post("api/productcategory/delete/", config, function () {
+        //            notificationService.displaySuccess("Xóa thành công");
+        //            search();
+        //        }, function () {
+        //            notificationService.displayError("Xóa không thành công");
+        //        });
+        //    });
+        //}
     }
 
     app.controller("productCategoryListController", productCategoryListController);
 
-    productCategoryListController.$inject = ["$scope", "apiService", "notificationService"];
+    productCategoryListController.$inject = ["$scope", "apiService", "notificationService", "$ngBootbox"];
 })(angular.module("minhvh.product_categories"));
