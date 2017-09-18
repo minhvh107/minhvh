@@ -169,7 +169,7 @@ namespace Minhvh.Web.Api
         [HttpDelete]
         [AllowAnonymous]
         [System.Web.Http.AcceptVerbs("Delete")]
-        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkProductCategories)
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string listId)
         {
             return CreateHttpReponseMessage(request, () =>
             {
@@ -180,16 +180,16 @@ namespace Minhvh.Web.Api
                 }
                 else
                 {
-                    var lstProductCategory = new JavaScriptSerializer().Deserialize<List<ProductCategoryViewModel>>(checkProductCategories);
+                    var lstIds = new JavaScriptSerializer().Deserialize<List<int>>(listId);
                     // Delete
-                    foreach (var item in lstProductCategory)
+                    foreach (var id in lstIds)
                     {
-                        _productCategoryService.Delete(item.ID);
+                        _productCategoryService.Delete(id);
                     }
                     _productCategoryService.SaveChanges();
 
                     //Return
-                    response = request.CreateResponse(HttpStatusCode.OK, lstProductCategory.Count);
+                    response = request.CreateResponse(HttpStatusCode.OK, lstIds.Count);
                 }
 
                 return response;

@@ -1,1 +1,66 @@
-﻿<h1>Danh sách sản phẩm</h1>
+﻿<div class="page-title">
+    <div class="title_left">
+        <h3>
+            Danh sách sản phẩm
+        </h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="x_panel">
+    <div class="x_title">
+
+        <div class="row form-inline">
+            <label class="col-md-2 col-sm-3 col-xs-12  margin-bottom-10" for="Keyword">
+                Tên/Mô tả sản phẩm:
+            </label>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <input type="text" id="Keyword" name="Keyword" class="form-control  width-per-100" ng-model="keyword" />
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-primary pull-left btn-search btn-small" ng-click="search()"><i class="fa fa-search"></i> Tìm kiếm</button>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div id="listContent">
+            <div class="table-header-action">
+                <a href="javascript:void(0);" ui-sref="create_product" class="margin-right-20 btn-add-item"><i class="fa fa-plus fa-lg"></i> Thêm</a>
+                <a href="javascript:void(0);" ui-sref="update_product({id:tdSelected.ID})" class="margin-right-20 btn-update-item"><i class="fa fa-edit fa-lg"></i> Sửa</a>
+                <a href="javascript:void(0);" ng-click="deleteProduct(tdSelected.ID)" class="margin-right-20 btn-remove-item"><i class="fa fa-remove fa-lg"></i> Xóa</a>
+                <a href="javascript:void(0);" ng-click="deleteMultiple()" class="margin-right-20 btn-delete-item hide" id="btnDelete"><i class="fa fa-remove fa-lg"></i> Xóa nhiều</a>
+                <input type="hidden" value="/Product/ViewItem" id="url-view" />
+            </div>
+            <div class="table-responsive table-fixed">
+                <table class="table table-striped table-bordered jambo_table bulk_action fixed_headers">
+                    <thead>
+                    <tr class="">
+                        <th class="column-10"><input name="all" type="checkbox" ng-click="selectAll()"/></th>
+                        <th class="column-title">Tên sản phẩm</th>
+                        <th class="column-title">Mô tả sản phẩm</th>
+                        <th class="column-title" style="width: 10%">Ngày tạo</th>
+                        <th class="column-title" style="width: 10%">Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-class="{'selected' : item==tdSelected}" class="" item-id="{{item.ID}}" ng-repeat="item in productCategories" ng-click="setSelected(item)">
+                        <td class="column-10 text-center"><input type="checkbox" ng-model="item.checked" name="all"/></td>
+                        <td class="" title="{{item.Name}}">{{item.Name}}</td>
+                        <td class="" title="{{item.Description}}">{{item.Description}}</td>
+                        <td class="text-center">{{item.CreatedDate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">{{item.Status | statusFilter}}</td>
+                    </tr>
+                    <!--<tr>
+                        <td colspan="4">Không có dữ liệu</td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_paging">
+        <pager-directive page-index="{{pageIndex}}" page-size="{{pageSize}}" custom-path="{{customPath}}" total-pages="{{totalPages}}" total-count="{{totalCount}}" search-func="getProducts(pageIndex,pageSize)"></pager-directive>
+    </div>
+</div>

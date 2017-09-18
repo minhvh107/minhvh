@@ -18,14 +18,14 @@
                     pageSize: pageSize
                 }
             }
-            apiService.get('api/productcategory/getall',
+            apiService.get("api/productcategory/getall",
                 config,
                 function (result) {
                     if (result.data.TotalCount == 0) {
-                        notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
+                        notificationService.displayWarning("Không có bản ghi nào được tìm thấy.");
                     }
                     else {
-                        notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' bản ghi.');
+                        notificationService.displaySuccess("Đã tìm thấy " + result.data.TotalCount + " bản ghi.");
                     }
                     $scope.productCategories = result.data.Item;
                     $scope.pageIndex = result.data.PageIndex;
@@ -101,13 +101,18 @@
 
         $scope.deleteMultiple = deleteMultiple;
         function deleteMultiple() {
+            var listId = [];
+            $.each($scope.selected,
+                function(i, item) {
+                    listId.push(item.ID);
+                });
             var config = {
                 params: {
-                    checkProductCategories: $scope.selected
+                    listId: JSON.stringify(listId)
                 }
             }
             apiService.del("api/productcategory/DeleteMulti",config,function(result) {
-                notificationService.displaySuccess("Xóa thành công" + result.data + " bản ghi.");
+                notificationService.displaySuccess("Xóa thành công " + result.data + " bản ghi.");
                 search();
             },function() {
                 notificationService.displayError("Xóa không thành công");

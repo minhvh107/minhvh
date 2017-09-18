@@ -62,5 +62,28 @@ namespace Minhvh.Web.Infrastructure.Extensions
             productCategory.Status = productCategoryViewModel.Status;
 
         }
+
+        public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
+        {
+            product.ID = productViewModel.ID;
+            product.Name = productViewModel.Name;
+            product.Alias = productViewModel.Alias;
+
+            product.Description = productViewModel.Description;
+            product.CategoryID = productViewModel.CategoryID;
+            product.Content = productViewModel.Content;
+
+            product.HotFlag = productViewModel.HotFlag;
+            product.HomeFlag = productViewModel.HomeFlag;
+            product.ViewCount = productViewModel.ViewCount;
+
+            product.CreatedDate = productViewModel.CreatedDate;
+            product.CreatedBy = productViewModel.CreatedBy;
+            product.UpdatedDate = productViewModel.UpdatedDate;
+            product.UpdatedBy = productViewModel.UpdatedBy;
+            product.MetaDescription = productViewModel.MetaDescription;
+            product.MetaKeyword = productViewModel.MetaKeyword;
+            product.Status = productViewModel.Status;
+        }
     }
 }
