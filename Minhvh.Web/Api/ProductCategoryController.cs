@@ -9,11 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Minhvh.Web.Infrastructure.Extensions;
 
 namespace Minhvh.Web.Api
 {
-    [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : ApiControllerBase
     {
         private readonly IProductCategoryService _productCategoryService;
@@ -22,9 +22,9 @@ namespace Minhvh.Web.Api
         {
             _productCategoryService = productCategoryService;
         }
-
-        [Route("getallparents")]
+        
         [HttpGet]
+        [System.Web.Http.AcceptVerbs("Get")]
         public HttpResponseMessage GetAllParents(HttpRequestMessage request)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -36,8 +36,8 @@ namespace Minhvh.Web.Api
             });
         }
 
-        [Route("getbyid/{id:int}")]
         [HttpGet]
+        [System.Web.Http.AcceptVerbs("Get")]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -52,8 +52,8 @@ namespace Minhvh.Web.Api
             });
         }
 
-        [Route("getall")]
         [HttpGet]
+        [System.Web.Http.AcceptVerbs("Get")]
         public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int pageIndex, int pageSize)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -75,9 +75,9 @@ namespace Minhvh.Web.Api
             });
         }
 
-        [Route("create")]
         [HttpPost]
         [AllowAnonymous]
+        [System.Web.Http.AcceptVerbs("Post")]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategoryViewModel)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -107,9 +107,9 @@ namespace Minhvh.Web.Api
             });
         }
 
-        [Route("update")]
-        [HttpPost]
+        [HttpPut]
         [AllowAnonymous]
+        [System.Web.Http.AcceptVerbs("Put")]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
         {
             return CreateHttpReponseMessage(request, () =>
@@ -139,31 +139,61 @@ namespace Minhvh.Web.Api
             });
         }
 
-        //[Route("delete")]
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public HttpResponseMessage Delete(HttpRequestMessage request, int id)
-        //{
-        //    return CreateHttpReponseMessage(request, () =>
-        //    {
-        //        HttpResponseMessage response = null;
-        //        if (!ModelState.IsValid)
-        //        {
-        //            response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
-        //        }
-        //        else
-        //        {
-        //            // Delete
-        //            var oldProductCategory =  _productCategoryService.Delete(id);
-        //            _productCategoryService.SaveChanges();
+        [HttpDelete]
+        [AllowAnonymous]
+        [System.Web.Http.AcceptVerbs("Delete")]
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+        {
+            return CreateHttpReponseMessage(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    // Delete
+                    var oldProductCategory = _productCategoryService.Delete(id);
+                    _productCategoryService.SaveChanges();
 
-        //            //Return
-        //            var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(oldProductCategory);
-        //            response = request.CreateResponse(HttpStatusCode.OK, responseData);
-        //        }
+                    //Return
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(oldProductCategory);
+                    response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                }
 
-        //        return response;
-        //    });
-        //}
+                return response;
+            });
+        }
+
+        [HttpDelete]
+        [AllowAnonymous]
+        [System.Web.Http.AcceptVerbs("Delete")]
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkProductCategories)
+        {
+            return CreateHttpReponseMessage(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var lstProductCategory = new JavaScriptSerializer().Deserialize<List<ProductCategoryViewModel>>(checkProductCategories);
+                    // Delete
+                    foreach (var item in lstProductCategory)
+                    {
+                        _productCategoryService.Delete(item.ID);
+                    }
+                    _productCategoryService.SaveChanges();
+
+                    //Return
+                    response = request.CreateResponse(HttpStatusCode.OK, lstProductCategory.Count);
+                }
+
+                return response;
+            });
+        }
     }
 }

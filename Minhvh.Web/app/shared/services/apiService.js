@@ -36,10 +36,23 @@
                 });
         }
 
+        function del(url, data, success, failure) {
+            $http.delete(url, data).then(function (result) {
+                    success(result);
+                },
+                function (error) {
+                    if (error.status == '401') {
+                        notificationService.displayError('Authendicate is required');
+                    }
+                    failure(error);
+                });
+        }
+
         return {
             get: get,
             post: post,
-            put: put
+            put: put,
+            del :del
         }
     }
 

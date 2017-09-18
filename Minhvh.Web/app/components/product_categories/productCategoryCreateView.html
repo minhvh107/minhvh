@@ -22,7 +22,7 @@
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="Alias">SEO tiêu đề</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="Alias" class="form-control" ng-model="productCategory.Alias"  ng-maxlength="256" required="required" name="Alias" placeholder="Nhập Seo" type="text">
+                                <input id="Alias" class="form-control" ng-model="productCategory.Alias" ng-maxlength="256" required="required" name="Alias" placeholder="Nhập Seo" type="text">
                                 <span ng-show="frmCreateProductCategory.Alias.$invalid" class="error">Phải nhập tiêu đề SEO</span>
                                 <span ng-show="frmCreateProductCategory.Alias.$error.maxlength" class="error">Tiêu đề SEO chỉ được 256 kí tự</span>
                             </div>
@@ -80,14 +80,10 @@
                         <div class="item form-group">
                             <div class="col-md-offset-3 col-md-9 col-xs-12">
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="flat" ng-model="productCategory.Status" name="Status" ng-checked="productCategory.Status" checked="checked"> Kích hoạt
-                                    </label>
+                                    <input type="checkbox" class="flat" ng-model="productCategory.Status" name="Status" ng-checked="productCategory.Status" checked="checked"> Kích hoạt
                                 </div>
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="flat" ng-model="productCategory.HomeFlag" name="HomeFlag" ng-checked="productCategory.HomeFlag" checked="checked"> Hiển thị trang chủ
-                                    </label>
+                                    <input type="checkbox" class="flat" ng-model="productCategory.HomeFlag" name="HomeFlag" ng-checked="productCategory.HomeFlag" checked="checked"> Hiển thị trang chủ
                                 </div>
                             </div>
                         </div>

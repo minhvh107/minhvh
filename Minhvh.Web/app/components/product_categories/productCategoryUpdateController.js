@@ -1,10 +1,10 @@
 ﻿(function (app) {
-    function productCategoryUpdateController($scope, apiService, notificationService, $state, $stateParams) {
+    function productCategoryUpdateController($scope, apiService, notificationService, $state, $stateParams, commonService, initJavascriptService) {
         $scope.productCategory = {
             CreatedDate: new Date(),
             Status: true
         }
-
+        initJavascriptService.iCheck();
         function loadProductCategoryDetail() {
             apiService.get('api/productcategory/getbyid/' + $stateParams.id,
                 null,
@@ -15,11 +15,10 @@
                     notificationService.displayError(error.data);
                 });
         }
-
-       
+        loadProductCategoryDetail();
 
         function updateProductCategory() {
-            apiService.post('api/productcategory/update', $scope.productCategory,
+            apiService.put('api/productcategory/update', $scope.productCategory,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được cập nhật.');
                     $state.go('product_categories');
@@ -27,7 +26,6 @@
                     notificationService.displayError('Cập nhật không thành công.');
                 });
         }
-         
         $scope.UpdateProductCategory = updateProductCategory;
 
         function loadParentCategory() {
@@ -40,13 +38,16 @@
                     console.log('canot get list parents');
                 });
         }
-
         loadParentCategory();
-        loadProductCategoryDetail();
+
+        function getSeoTitle() {
+            $scope.productCategory.Alias = commonService.getSeoTitle($scope.productCategory.Name);
+        }
+        $scope.GetSeoTitle = getSeoTitle;
     }
 
     app.controller('productCategoryUpdateController', productCategoryUpdateController);
 
-    productCategoryUpdateController.$inject = ['$scope', 'apiService', 'notificationService', '$state', '$stateParams'];
+    productCategoryUpdateController.$inject = ["$scope", "apiService", "notificationService", "$state", "$stateParams", "commonService","initJavascriptService"];
 
-})(angular.module('minhvh.product_categories'));
+})(angular.module("minhvh.product_categories"));

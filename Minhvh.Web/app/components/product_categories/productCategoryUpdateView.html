@@ -13,21 +13,26 @@
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="Name">Tên danh mục</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="Name" class="form-control" ng-model="productCategory.Name" name="Name" type="text">
+                                <input id="Name" class="form-control" ng-model="productCategory.Name" ng-maxlength="256" required="required" ng-change="GetSeoTitle()" name="Name" type="text">
+                                <span ng-show="frmUpdateProductCategory.Name.$invalid" class="error" >Phải nhập tên danh mục</span>
+                                <span ng-show="frmUpdateProductCategory.Name.$error.maxlength" class="error">Tên danh mục chỉ được 256 kí tự</span>
                             </div>
                         </div>
 
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="Alias">SEO tiêu đề</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="Alias" class="form-control" ng-model="productCategory.Alias" name="Alias" placeholder="Nhập Seo" type="text">
+                                <input id="Alias" class="form-control" ng-model="productCategory.Alias" ng-maxlength="256" required="required" name="Alias" placeholder="Nhập Seo" type="text">
+                                <span ng-show="frmUpdateProductCategory.Alias.$invalid" class="error">Phải nhập tiêu đề SEO</span>
+                                <span ng-show="frmUpdateProductCategory.Alias.$error.maxlength" class="error">Tiêu đề SEO chỉ được 256 kí tự</span>
                             </div>
                         </div>
 
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="Description">Mô tả ngắn</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="Description" class="form-control" ng-model="productCategory.Description" name="Description" placeholder="Nhập mô tả ngắn" type="text">
+                                <input id="Description" class="form-control" ng-model="productCategory.Description" ng-maxlength="500" name="Description" placeholder="Nhập mô tả ngắn" type="text">
+                                <span ng-show="frmUpdateProductCategory.Description.$error.maxlength" class="error">Mô tả chỉ được 500 kí tự</span>
                             </div>
                         </div>
 
@@ -44,7 +49,8 @@
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="DisplayOrder">Thứ tự</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="DisplayOrder" class="form-control" ng-model="productCategory.DisplayOrder" name="DisplayOrder" placeholder="Nhập thứ tự" type="number">
+                                <input id="DisplayOrder" class="form-control" ng-model="productCategory.DisplayOrder" required="required" name="DisplayOrder" placeholder="Nhập thứ tự" type="number">
+                                <span ng-show="frmUpdateProductCategory.DisplayOrder.$invalid" class="error">Phải nhập thứ tự</span>
                             </div>
                         </div>
 
@@ -73,23 +79,19 @@
                         <div class="item form-group">
                             <div class="col-md-offset-3 col-md-9 col-xs-12">
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="flat" ng-model="productCategory.Status" name="Status" ng-checked="productCategory.Status" checked="checked"> Kích hoạt
-                                    </label>
+                                    <input type="checkbox" class="flat" ng-model="productCategory.Status" name="Status" ng-checked="productCategory.Status" checked="checked"> Kích hoạt
                                 </div>
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="flat" ng-model="productCategory.HomeFlag" name="HomeFlag" ng-checked="productCategory.HomeFlag" checked="checked"> Hiển thị trang chủ
-                                    </label>
+                                    <input type="checkbox" class="flat" ng-model="productCategory.HomeFlag" name="HomeFlag" ng-checked="productCategory.HomeFlag" checked="checked"> Hiển thị trang chủ
                                 </div>
                             </div>
                         </div>
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
-                            <div class="col-md-12 text-right">
-                                <button type="button" ui-sref="product_categories" class="btn btn-primary"> Huỷ</button>
-                                <button type="submit" class="btn btn-success">Lưu</button>
+                            <div class="col-md-12">
+                                <button type="button" ui-sref="product_categories" class="btn btn-danger"> Huỷ</button>
+                                <button type="submit" class="btn btn-success pull-right">Lưu</button>
                             </div>
                         </div>
                     </form>

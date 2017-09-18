@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -627,28 +628,6 @@
     <Content Include="Assets\admin\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\DOCS.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
-    <Content Include="Assets\admin\libs\angular-ui-router\migrate\migrate.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
-    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
-    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\admin\libs\jquery\.bower.json" />
     <Content Include="Assets\admin\libs\jquery\bower.json" />
     <Content Include="Assets\admin\libs\jquery\dist\jquery.min.map" />
@@ -801,6 +780,28 @@
     <Content Include="Assets\admin\libs\bootstrap\package.json" />
     <Content Include="Assets\admin\libs\bootstrap\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\admin\libs\angular-ui-router\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\artifacts.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\bower.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CHANGELOG.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\CONTRIBUTING.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\DOCS.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\ISSUE_TEMPLATE.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-ui-router\migrate\migrate.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\README.md" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\angular-ui-router.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\resolveService.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\stateEvents.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\release\ui-router-angularjs.min.js.map" />
+    <Content Include="Assets\admin\libs\angular-ui-router\tslint.json" />
+    <Content Include="Assets\admin\libs\angular-ui-router\yarn.lock" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -820,7 +821,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51029</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51029/</IISUrl>
+          <IISUrl>http://localhost:51111/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:51111/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -174,29 +174,19 @@
                     });
                 });
             }
-
+        }
+        function iCheck() {
             if ($("input.flat")[0]) {
-                $(document).ready(function () {
-                    $('input.flat').iCheck({
-                        checkboxClass: 'icheckbox_flat-green',
-                        radioClass: 'iradio_flat-green'
-                    });
+                $('input.flat').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
                 });
             }
-
         }
-        function initTable() {
-            console.log("123123123");
-            $('table.bulk_action td').on('click', function () {
-                // $("table.bulk_action tr").removeClass('selected');
-                $(this).parent().parent().find('tr').removeClass('selected');
-                $(this).parent().toggleClass('selected');
-            });
-        }
+        
         return{
             init: init,
-            restrict: 'E',
-            initTable:initTable
+            iCheck: iCheck
         }
     }
     
