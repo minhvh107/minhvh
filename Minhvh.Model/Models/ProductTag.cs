@@ -13,6 +13,7 @@ namespace Minhvh.Model.Models
         [ForeignKey("ProductID")]
         public virtual Product Product { set; get; }
 
+        [Key]
         [Required]
         [MaxLength(50)]
         [Column(TypeName = "varchar", Order = 2)]

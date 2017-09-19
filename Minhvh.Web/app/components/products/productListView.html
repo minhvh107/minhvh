@@ -44,7 +44,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-class="{'selected' : item==tdSelected}" class="" item-id="{{item.ID}}" ng-repeat="item in productCategories" ng-click="setSelected(item)">
+                    <tr ng-class="{'selected' : item==tdSelected}" class="" item-id="{{item.ID}}" ng-repeat="item in products" ng-click="setSelected(item)">
                         <td class="column-10 text-center"><input type="checkbox" ng-model="item.checked" name="all"/></td>
                         <td class="" title="{{item.Name}}">{{item.Name}}</td>
                         <td class="" title="{{item.Description}}">{{item.Description}}</td>

@@ -73,6 +73,14 @@ namespace Minhvh.Web.Infrastructure.Extensions
             product.CategoryID = productViewModel.CategoryID;
             product.Content = productViewModel.Content;
 
+            product.Price = productViewModel.Price;
+            product.PromotionPrice = productViewModel.PromotionPrice;
+            product.Warranty = productViewModel.Warranty;
+
+            product.Image = productViewModel.Image;
+            product.MoreImage = productViewModel.MoreImage;
+            product.Tags = productViewModel.Tags;
+
             product.HotFlag = productViewModel.HotFlag;
             product.HomeFlag = productViewModel.HomeFlag;
             product.ViewCount = productViewModel.ViewCount;

@@ -3,6 +3,8 @@ using Minhvh.Data.Repositories;
 using Minhvh.Model.Models;
 using System.Collections.Generic;
 using System;
+using System.Security.Cryptography.X509Certificates;
+using Minhvh.Common;
 
 namespace Minhvh.Service
 {
@@ -28,20 +30,80 @@ namespace Minhvh.Service
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        private readonly IProductTagRepository _productTagRepository;
+        private readonly ITagRepository _tagRepository;
+
+        public ProductService(
+            IProductRepository productRepository,
+            IProductTagRepository productTagRepository,
+            ITagRepository tagRepository, 
+            IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
+            _productTagRepository = productTagRepository;
+            _tagRepository = tagRepository;
             _unitOfWork = unitOfWork;
         }
 
         public Product Create(Product product)
         {
-            return _productRepository.Create(product);
+            var productCreate = _productRepository.Create(product);
+            _unitOfWork.SaveChanges();
+            //if (!string.IsNullOrEmpty(product.Tags))
+            //{
+            //    var tags = product.Tags.Split(',');
+            //    foreach (string itemTag in tags)
+            //    {
+            //        var tagId = StringHelper.ToUnsignString(itemTag);
+            //        if (_tagRepository.Count(x => x.ID == tagId) == 0)
+            //        {
+            //            var tagCreate = new Tag
+            //            {
+            //                ID = tagId,
+            //                Name = itemTag,
+            //                Type = CommonConstants.ProductTag
+            //            };
+            //            _tagRepository.Create(tagCreate);
+            //        }
+            //        var productTags = new ProductTag
+            //        {
+            //            ProductID = productCreate.ID,
+            //            TagID = tagId
+            //        };
+            //        _productTagRepository.Create(productTags);
+            //    }
+            //}
+            return productCreate;
         }
 
         public void Update(Product product)
         {
             _productRepository.Update(product);
+            //if (!string.IsNullOrEmpty(product.Tags))
+            //{
+            //    var tags = product.Tags.Split(',');
+            //    foreach (string itemTag in tags)
+            //    {
+            //        var tagId = StringHelper.ToUnsignString(itemTag);
+            //        if (_tagRepository.Count(x => x.ID == tagId) == 0)
+            //        {
+            //            var tagCreate = new Tag
+            //            {
+            //                ID = tagId,
+            //                Name = itemTag,
+            //                Type = CommonConstants.ProductTag
+            //            };
+            //            _tagRepository.Create(tagCreate);
+            //        }
+            //        _productTagRepository.DeleteMulti(m=>m.ProductID == product.ID);
+            //        var productTags = new ProductTag
+            //        {
+            //            ProductID = product.ID,
+            //            TagID = tagId
+            //        };
+            //        _productTagRepository.Create(productTags);
+            //    }
+            //}
         }
 
         public Product Delete(int id)
@@ -66,9 +128,9 @@ namespace Minhvh.Service
 
         public IEnumerable<Product> GetAll(string keyword)
         {
-            if (!string.IsNullOrEmpty(keyword))
-                return _productRepository.GetMulti(
-                    m => m.Name.Contains(keyword) || m.Description.Contains(keyword));
+            //if (!string.IsNullOrEmpty(keyword))
+            //    return _productRepository.GetMulti(
+            //        m => m.Name.Contains(keyword) || m.Description.Contains(keyword));
             return _productRepository.GetAll();
         }
     }

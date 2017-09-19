@@ -95,7 +95,7 @@ label.control-label {
 }
 
 .error {
-    color: red;
+    color: red !important;
 }
 
 input.error {

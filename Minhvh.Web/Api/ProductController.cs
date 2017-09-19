@@ -16,11 +16,11 @@ namespace Minhvh.Web.Api
 {
     public class ProductController : ApiControllerBase
     {
-        private readonly IProductService _productCategoryService;
+        private readonly IProductService _productService;
 
-        public ProductController(IErrorCodeService errorCodeService, IProductService productCategoryService) : base(errorCodeService)
+        public ProductController(IErrorCodeService errorCodeService, IProductService productService) : base(errorCodeService)
         {
-            _productCategoryService = productCategoryService;
+            _productService = productService;
         }
         
         [HttpGet]
@@ -29,7 +29,7 @@ namespace Minhvh.Web.Api
         {
             return CreateHttpReponseMessage(request, () =>
             {
-                var model = _productCategoryService.GetAll();
+                var model = _productService.GetAll();
                 var responseData = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(model);
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
                 return response;
@@ -42,7 +42,7 @@ namespace Minhvh.Web.Api
         {
             return CreateHttpReponseMessage(request, () =>
             {
-                var model = _productCategoryService.GetById(id);
+                var model = _productService.GetById(id);
 
                 var responseData = Mapper.Map<Product, ProductViewModel>(model);
 
@@ -58,10 +58,10 @@ namespace Minhvh.Web.Api
         {
             return CreateHttpReponseMessage(request, () =>
             {
-                var model = _productCategoryService.GetAll(keyword);
+                var model = _productService.GetAll(keyword);
                 var totalRow = model.Count();
                 var query = model.OrderByDescending(m => m.CreatedDate).Skip(pageIndex * pageSize).Take(pageSize);
-                var responseData = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query);
+                var responseData = Mapper.Map<List<Product>, List<ProductViewModel>>(query.ToList());
                 var paginationSet = new PaginationSet<ProductViewModel>
                 {
                     Item = responseData,
@@ -78,7 +78,7 @@ namespace Minhvh.Web.Api
         [HttpPost]
         [AllowAnonymous]
         [System.Web.Http.AcceptVerbs("Post")]
-        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryViewModel)
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productViewModel)
         {
             return CreateHttpReponseMessage(request, () =>
             {
@@ -90,14 +90,14 @@ namespace Minhvh.Web.Api
                 else
                 {
                     //Value Default
-                    productCategoryViewModel.CreatedBy = "admin";
-                    productCategoryViewModel.CreatedDate = DateTime.Now;
+                    productViewModel.CreatedBy = "admin";
+                    productViewModel.CreatedDate = DateTime.Now;
 
                     //Save
                     var newProduct = new Product();
-                    newProduct.UpdateProduct(productCategoryViewModel);
-                    _productCategoryService.Create(newProduct);
-                    _productCategoryService.SaveChanges();
+                    newProduct.UpdateProduct(productViewModel);
+                    _productService.Create(newProduct);
+                    _productService.SaveChanges();
 
                     //Return
                     var responseData = Mapper.Map<Product, ProductViewModel>(newProduct);
@@ -110,7 +110,7 @@ namespace Minhvh.Web.Api
         [HttpPut]
         [AllowAnonymous]
         [System.Web.Http.AcceptVerbs("Put")]
-        public HttpResponseMessage Update(HttpRequestMessage request, ProductViewModel productCategoryVm)
+        public HttpResponseMessage Update(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpReponseMessage(request, () =>
             {
@@ -122,13 +122,13 @@ namespace Minhvh.Web.Api
                 else
                 {
                     // Value Default
-                    productCategoryVm.UpdatedDate = DateTime.Now;
+                    productVm.UpdatedDate = DateTime.Now;
 
                     // Update
-                    var dbProduct = _productCategoryService.GetById(productCategoryVm.ID);
-                    dbProduct.UpdateProduct(productCategoryVm);
-                    _productCategoryService.Update(dbProduct);
-                    _productCategoryService.SaveChanges();
+                    var dbProduct = _productService.GetById(productVm.ID);
+                    dbProduct.UpdateProduct(productVm);
+                    _productService.Update(dbProduct);
+                    _productService.SaveChanges();
 
                     //Return
                     var responseData = Mapper.Map<Product, ProductViewModel>(dbProduct);
@@ -154,8 +154,8 @@ namespace Minhvh.Web.Api
                 else
                 {
                     // Delete
-                    var oldProduct = _productCategoryService.Delete(id);
-                    _productCategoryService.SaveChanges();
+                    var oldProduct = _productService.Delete(id);
+                    _productService.SaveChanges();
 
                     //Return
                     var responseData = Mapper.Map<Product, ProductViewModel>(oldProduct);
@@ -184,9 +184,9 @@ namespace Minhvh.Web.Api
                     // Delete
                     foreach (var id in lstIds)
                     {
-                        _productCategoryService.Delete(id);
+                        _productService.Delete(id);
                     }
-                    _productCategoryService.SaveChanges();
+                    _productService.SaveChanges();
 
                     //Return
                     response = request.CreateResponse(HttpStatusCode.OK, lstIds.Count);

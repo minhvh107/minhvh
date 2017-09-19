@@ -39,9 +39,10 @@
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="ParentID">Danh mục sản phẩm</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select id="ParentID" class="form-control" ng-model="product.CategoryID" name="ParentID" ng-options="option.ID as option.Name for option in productCategories">
+                                <select id="ParentID" class="form-control" ng-model="product.CategoryID" required name="ParentID" ng-options="option.ID as option.Name for option in productCategories">
                                     <option value=""> Danh mục sản phẩm</option>
                                 </select>
+                                <span ng-show="frmAddProduct.CategoryID.$invalid" class="has-error">Phải chọn danh mục</span>
                                 <input type="hidden" ng-model="product.CategoryID" name="ParentID" />
                             </div>
                         </div>
@@ -73,6 +74,13 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <textarea id="Content" class="form-control" ng-model="product.Content" ckeditor="ckeditorOptions" ng-maxlength="500" name="Content" placeholder="Nhập mô tả sản phẩm"></textarea>
                                 <span ng-show="frmCreateProduct.Content.$error.maxlength" class="error">Mô tả chỉ được 500 kí tự</span>
+                            </div>
+                        </div>
+                        
+                        <div class="item form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 required" for="Tags">Tags</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="Tags" class="form-control" ng-model="product.Tags" name="Tags" placeholder="Nhập tags" type="text">
                             </div>
                         </div>
 

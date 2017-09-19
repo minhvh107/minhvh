@@ -14,11 +14,19 @@ namespace Minhvh.Web.Models
 
         public virtual ProductCategoryViewModel ProductCategoryViewModel { set; get; }
 
-        public virtual ProductTagViewModel ProductTags { set; get; }
+        public string Image { set; get; }
+
+        public string MoreImage { set; get; }
+
+        public decimal Price { set; get; }
+
+        public decimal? PromotionPrice { set; get; }
 
         public string Description { set; get; }
 
         public string Content { set; get; }
+
+        public int? Warranty { set; get; }
 
         public bool? HomeFlag { set; get; }
 
@@ -39,5 +47,7 @@ namespace Minhvh.Web.Models
         public string MetaDescription { set; get; }
 
         public bool Status { set; get; }
+
+        public string Tags { set; get; }
     }
 }

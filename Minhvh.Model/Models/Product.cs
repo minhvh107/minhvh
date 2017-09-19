@@ -36,7 +36,7 @@ namespace Minhvh.Model.Models
         public int? Warranty { set; get; }
 
         public string Description { set; get; }
-        
+
         public string Content { set; get; }
 
         public bool? HomeFlag { set; get; }
@@ -44,6 +44,8 @@ namespace Minhvh.Model.Models
         public bool? HotFlag { set; get; }
 
         public int ViewCount { set; get; }
+
+        public string Tags { set; get; }
 
     }
 }
