@@ -47,5 +47,7 @@ namespace Minhvh.Model.Models
 
         public string Tags { set; get; }
 
+        public int DisplayOrder { set; get; }
+
     }
 }

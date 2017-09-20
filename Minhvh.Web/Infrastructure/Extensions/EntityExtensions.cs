@@ -85,6 +85,8 @@ namespace Minhvh.Web.Infrastructure.Extensions
             product.HomeFlag = productViewModel.HomeFlag;
             product.ViewCount = productViewModel.ViewCount;
 
+            product.DisplayOrder = productViewModel.DisplayOrder;
+
             product.CreatedDate = productViewModel.CreatedDate;
             product.CreatedBy = productViewModel.CreatedBy;
             product.UpdatedDate = productViewModel.UpdatedDate;

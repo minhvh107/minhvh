@@ -62,9 +62,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201709191010470_initDb.cs" />
-    <Compile Include="Migrations\201709191010470_initDb.Designer.cs">
-      <DependentUpon>201709191010470_initDb.cs</DependentUpon>
+    <Compile Include="Migrations\201709200303185_initDB.cs" />
+    <Compile Include="Migrations\201709200303185_initDB.Designer.cs">
+      <DependentUpon>201709200303185_initDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinhvhDbContext.cs" />
@@ -103,8 +103,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709191010470_initDb.resx">
-      <DependentUpon>201709191010470_initDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709200303185_initDB.resx">
+      <DependentUpon>201709200303185_initDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

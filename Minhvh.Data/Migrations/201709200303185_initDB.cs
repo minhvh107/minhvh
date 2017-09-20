@@ -3,7 +3,7 @@ namespace Minhvh.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initDb : DbMigration
+    public partial class initDB : DbMigration
     {
         public override void Up()
         {
@@ -107,6 +107,7 @@ namespace Minhvh.Data.Migrations
                         HotFlag = c.Boolean(),
                         ViewCount = c.Int(nullable: false),
                         Tags = c.String(),
+                        DisplayOrder = c.Int(nullable: false),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),

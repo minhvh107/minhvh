@@ -123,6 +123,7 @@ namespace Minhvh.Web.Api
                 {
                     // Value Default
                     productCategoryVm.UpdatedDate = DateTime.Now;
+                   // productCategoryVm.Status = productCategoryVm.Status != null ? true : false;
 
                     // Update
                     var dbProductCategory = _productCategoryService.GetById(productCategoryVm.ID);
