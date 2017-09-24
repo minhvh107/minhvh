@@ -95,9 +95,41 @@
                         <div class="item form-group">
                             <label class="col-md-3 col-sm-3 col-xs-12 required" for="Image">Hình ảnh</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="Image" class="form-control" ng-model="product.Image" ng-maxlength="256" name="Image" placeholder="Nhập tên sản phẩm" type="text">
+                                <!--<input id="Image" class="form-control" ng-model="product.Image" ng-maxlength="256" name="Image" placeholder="Nhập tên sản phẩm" type="text">-->
+                                <div class="row">
+                                    <div class="col-md-55">
+                                        <div class="thumbnail">
+                                            <div class="image view view-first">
+                                                <img class="img-responsive" ng-src="{{product.Image}}" alt="image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <span ng-show="frmUpdateProduct.Image.$error.maxlength" class="error">Hình ảnh chỉ được 500 kí tự</span>
                                 <button class="btn btn-default" type="button" ng-click="chooseImage()">Chọn ảnh</button>
+                            </div>
+                        </div>
+                        
+                        <div class="item form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 required">Thêm ảnh</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-55" ng-repeat="img in moreImages">
+                                        <div class="thumbnail">
+                                            <div class="image view view-first">
+                                                <img style="width: 100%; display: block;" ng-src="{{img}}" alt="image" />
+                                                <div class="mask no-caption">
+                                                    <div class="tools tools-bottom">
+                                                        <!--<a href="#"><i class="fa fa-link"></i></a>
+                                    <a href="#"><i class="fa fa-pencil"></i></a>-->
+                                                        <a href="#"><i class="fa fa-times"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-default" type="button" ng-click="chooseMoreImage()">Chọn ảnh</button>
                             </div>
                         </div>
 
@@ -125,7 +157,7 @@
                                     <input type="checkbox" class="flat" ng-model="product.HomeFlag" name="HomeFlag" ng-change="product.HomeFlag" ng-checked="product.HomeFlag"> Hiển thị trang chủ
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox" class="flat" ng-model="product.HotFlag" name="HomeFlag" ng-change="product.HotFlag" ng-checked="product.HotFlag"> SP hot
+                                    <input type="checkbox" class="flat" ng-model="product.HotFlag" name="HotFlag" ng-change="product.HotFlag" ng-checked="product.HotFlag"> SP hot
                                 </div>
                             </div>
                         </div>
@@ -133,7 +165,7 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="button" ui-sref="product_categories" class="btn btn-danger"> Huỷ</button>
+                                <button type="button" ui-sref="products" class="btn btn-danger"> Huỷ</button>
                                 <button type="submit" ng-disabled="frmUpdateProduct.$invalid" class="btn btn-success pull-right">Lưu</button>
                             </div>
                         </div>

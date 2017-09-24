@@ -278,18 +278,8 @@ $(document).ready(function () {
 //    countChecked();
 //});
 
-$('table.bulk_action td').on('click', function () {
-    //checkState = '';
-    // $("table.bulk_action tr").removeClass('selected');
-    $(this).parent().parent().find('tr').removeClass('selected');
-    $(this).parent().toggleClass('selected');
-    //countChecked();
-});
-//$('.bulk_action input').on('ifUnchecked', function () {
-//    checkState = '';
-//    $(this).parent().parent().parent().removeClass('selected');
-//    countChecked();
-//});
+
+
 
 function countChecked() {
     if (checkState === 'all') {

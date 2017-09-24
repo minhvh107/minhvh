@@ -4,12 +4,14 @@
             CreatedDate: new Date(),
             Status: true
         }
-        initJavascriptService.iCheck();
+        $scope.moreImages = [];
         function loadProductDetail() {
             apiService.get('api/product/getbyid/' + $stateParams.id,
                 null,
                 function (result) {
                     $scope.product = result.data;
+                    $scope.moreImages = JSON.parse($scope.product.MoreImage);
+                    initJavascriptService.iCheck();
                 },
                 function (error) {
                     notificationService.displayError(error.data);
@@ -18,6 +20,7 @@
         loadProductDetail();
 
         function updateProduct() {
+            $scope.product.MoreImage = JSON.stringify($scope.moreImages);
             apiService.put('api/product/update', $scope.product,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được cập nhật.');
@@ -37,10 +40,23 @@
         function chooseImage() {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                });
             }
             finder.popup();
         }
+        
+        function chooseMoreImage() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.moreImages.push(fileUrl);
+                });
+            }
+            finder.popup();
+        }
+        $scope.chooseMoreImage = chooseMoreImage;
 
         function loadProductCategories() {
             apiService.get("api/productcategory/GetAllParents", null, function (result) {
