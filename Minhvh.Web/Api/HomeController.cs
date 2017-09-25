@@ -17,6 +17,7 @@ namespace Minhvh.Web.Api
 
         [HttpGet]
         [Route("TestMethod")]
+        [System.Web.Http.AcceptVerbs("Get")]
         public string TestMethod()
         {
             return "Hello, TEDU Member. ";

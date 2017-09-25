@@ -14,6 +14,7 @@ using Minhvh.Web.Infrastructure.Extensions;
 
 namespace Minhvh.Web.Api
 {
+    [Authorize]
     public class ProductController : ApiControllerBase
     {
         private readonly IProductService _productService;

@@ -12,6 +12,7 @@ using Minhvh.Web.Models;
 namespace Minhvh.Web.Api
 {
     [RoutePrefix("api/postcategory")]
+    [Authorize]
     public class PostCategoryController : ApiControllerBase
     {
         private readonly IPostCategoryService _postCategoryService;
