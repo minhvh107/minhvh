@@ -1,10 +1,15 @@
 ﻿(function (app) {
-    app.controller("rootController", rootController);
-    rootController.$inject = ["$scope","$state"];
-    function rootController($scope, $state) {
-        $scope.logout = function() {
-            $state.go("login");
-        }
-    }
+    app.controller('rootController', rootController);
 
-})(angular.module("minhvh"))
+    rootController.$inject = ['$state', 'authData', 'loginService', '$scope', 'authenticationService'];
+
+    function rootController($state, authData, loginService, $scope, authenticationService) {
+        $scope.logOut = function () {
+            loginService.logOut();
+            $state.go('login');
+        }
+        $scope.authentication = authData.authenticationData;
+
+        authenticationService.validateRequest();
+    }
+})(angular.module('minhvh'));

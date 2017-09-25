@@ -2,6 +2,8 @@
 using Minhvh.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Minhvh.Data.Migrations
 {
@@ -16,31 +18,31 @@ namespace Minhvh.Data.Migrations
 
         protected override void Seed(Minhvh.Data.MinhvhDbContext context)
         {
-            //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinhvhDbContext()));
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinhvhDbContext()));
 
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new MinhvhDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new MinhvhDbContext()));
 
-            //var user = new ApplicationUser()
-            //{
-            //    UserName = "tedu",
-            //    Email = "tedu.international@gmail.com",
-            //    EmailConfirmed = true,
-            //    BirthDay = DateTime.Now,
-            //    FullName = "Technology Education"
+            var user = new ApplicationUser()
+            {
+                UserName = "tedu",
+                Email = "tedu.international@gmail.com",
+                EmailConfirmed = true,
+                BirthDay = DateTime.Now,
+                FullName = "Technology Education"
 
-            //};
+            };
 
-            //manager.Create(user, "123654$");
+            manager.Create(user, "123654$");
 
-            //if (!roleManager.Roles.Any())
-            //{
-            //    roleManager.Create(new IdentityRole { Name = "Admin" });
-            //    roleManager.Create(new IdentityRole { Name = "User" });
-            //}
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
 
-            //var adminUser = manager.FindByEmail("tedu.international@gmail.com");
+            var adminUser = manager.FindByEmail("tedu.international@gmail.com");
 
-            //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
 
             CreateProductCategorySample(context);
         }
